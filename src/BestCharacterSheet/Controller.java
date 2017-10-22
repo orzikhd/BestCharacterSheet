@@ -69,7 +69,6 @@ public class Controller {
         System.out.println("Updating test and summary");
         System.out.println(getAll("AdventurerName"));
 
-
         ((Label)getByClass("AdventurerName")).setText(adventurer.getName());
         ((Label)getByClass("ClassName")).setText(adventurer.getAdventurerClass().getName());
         ((Label)getByClass("HitDie")).setText(Integer.toString(adventurer.getAdventurerClass().getHitDie()));
