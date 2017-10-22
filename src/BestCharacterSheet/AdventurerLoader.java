@@ -10,7 +10,7 @@ public class AdventurerLoader {
 
     }
 
-    public Adventurer loadAdventurer(String adventurerName, PlayerHandbook playerHandbook) {
+    public Adventurer loadAdventurer(String adventurerName, PlayerHandbook playerHandbook) throws Exception{
         Adventurer res = new Adventurer();
 
         Document doc = null;

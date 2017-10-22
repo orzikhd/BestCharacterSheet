@@ -22,11 +22,11 @@ public class App extends Application {
 
         AdventurerLoader adventurerLoader = new AdventurerLoader();
         Adventurer darby = adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
-        System.out.println(darby.getName());
-        System.out.println(darby.getAbilityScores());
-        System.out.println(darby.getAbilityModifiers());
-        System.out.println(darby.getSkillProficiencies());
-        System.out.println(darby.getProficiencyBonus());
+        System.out.println("name: " + darby.getName());
+        System.out.println("ability scores: " + darby.getAbilityScores());
+        System.out.println("ability mods: " + darby.getAbilityModifiers());
+        System.out.println("skill profs: " + darby.getSkillProficiencies());
+        System.out.println("prof bonuses: " + darby.getProficiencyBonus());
         System.out.println(darby.getSkillModifiers());
 
         Adventurer lars = new Adventurer();

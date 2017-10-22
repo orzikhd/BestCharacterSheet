@@ -4,7 +4,5 @@
     <class>Artificer</class>
     <maxhealth>8</maxhealth>
     <currhealth>7</currhealth>
-    <level>3</level>
     <abilityscores>10, 10, 10, 10, 10, 10</abilityscores>
-    <skillproficiencies>Athletics, Persuasion</skillproficiencies>
 </adventurer>
