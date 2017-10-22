@@ -54,41 +54,45 @@ public class UserInterface {
         Tab tab = new Tab("Test Tab");
         GridPane tabGrid = new GridPane();
 
-        Label name1 = new Label("Name:");
-        Label name2 = new Label("NO NAME LOADED");
-        name2.setId("testName");
+        Label nameStatic = new Label("Name:");
+        Label nameDynamic = new Label("NO NAME LOADED");
+        nameDynamic.setId("testName");
 
-        Label adventurerClass1 = new Label("Class:");
-        Label adventurerClass2 = new Label("NO CLASS LOADED");
-        adventurerClass2.setId("testClass");
+        Label adventurerClassStatic = new Label("Class:");
+        Label adventurerClassDynamic = new Label("NO CLASS LOADED");
+        adventurerClassDynamic.setId("testClass");
 
-        Label classDie1 = new Label("Class Die:");
-        Label classDie2 = new Label("NO DIE LOADED:");
-        classDie2.setId("testDie");
+        Label classDieStatic = new Label("Class Die:");
+        Label classDieDynamic = new Label("NO DIE LOADED:");
+        classDieDynamic.setId("testDie");
 
-        Label maxHealth1 = new Label("Max Health:");
-        Label maxHealth2 = new Label("NO MAX HEALTH LOADED");
-        maxHealth2.setId("testMaxHealth");
+        Label maxHealthStatic = new Label("Max Health:");
+        Label maxHealthDynamic = new Label("NO MAX HEALTH LOADED");
+        maxHealthDynamic.setId("testMaxHealth");
 
-        Label currHealth1 = new Label("Curr Health:");
-        Label currHealth2 = new Label("NO CURR HEALTH LOADED");
-        currHealth2.setId("testCurrHealth");
+        Label currHealthStatic = new Label("Curr Health:");
+        Label currHealthDynamic = new Label("NO CURR HEALTH LOADED");
+        currHealthDynamic.setId("testCurrHealth");
 
-        tabGrid.add(name1,0,0);
-        tabGrid.add(name2,1,0);
+        Button dmgButton = new Button("Take 1 point damage!");
+        dmgButton.setId("testDmgBtn");
 
-        tabGrid.add(adventurerClass1,0,1);
-        tabGrid.add(adventurerClass2,1,1);
+        tabGrid.add(nameStatic,0,0);
+        tabGrid.add(nameDynamic,1,0);
 
-        tabGrid.add(classDie1,0,2);
-        tabGrid.add(classDie2,1,2);
+        tabGrid.add(adventurerClassStatic,0,1);
+        tabGrid.add(adventurerClassDynamic,1,1);
 
-        tabGrid.add(maxHealth1, 0, 3);
-        tabGrid.add(maxHealth2, 1, 3);
+        tabGrid.add(classDieStatic,0,2);
+        tabGrid.add(classDieDynamic,1,2);
 
-        tabGrid.add(currHealth1, 0, 4);
-        tabGrid.add(currHealth2, 1, 4);
+        tabGrid.add(maxHealthStatic, 0, 3);
+        tabGrid.add(maxHealthDynamic, 1, 3);
 
+        tabGrid.add(currHealthStatic, 0, 4);
+        tabGrid.add(currHealthDynamic, 1, 4);
+
+        tabGrid.add(dmgButton, 0, 5);
 
         tab.setContent(tabGrid);
         tab.setId("testTab");

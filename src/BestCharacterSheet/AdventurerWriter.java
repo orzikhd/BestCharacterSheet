@@ -5,17 +5,24 @@ import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 public class AdventurerWriter {
     public AdventurerWriter() {
 
     }
 
-    public void writeAdventurer(Adventurer adventurer) throws Exception{
+    public void writeAdventurer(Adventurer adventurer) {
         DocumentBuilderFactory documentBuilderFactory =
                 DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder =
-                documentBuilderFactory.newDocumentBuilder();
+
+        DocumentBuilder documentBuilder = null;
+        try {
+            documentBuilder =
+                    documentBuilderFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            System.out.println("ERROR CREATING DOCUMENT BUILDER");
+        }
 
         Document doc = documentBuilder.newDocument();
         Element rootElement = doc.createElement("adventurer");
@@ -39,7 +46,11 @@ public class AdventurerWriter {
         String skillProficienciesString = adventurer.getSkillProficiencies().toString();
         addElementFromArrayStringToRoot("skillproficiencies", skillProficienciesString, rootElement, doc);
 
-        DataWriter.writeData("src/adventurers/" + adventurer.getName() + ".xml", doc);
+        try {
+            DataWriter.writeData("src/adventurers/" + adventurer.getName() + ".xml", doc);
+        } catch (Exception e) {
+            System.out.println("ERROR WRITING TO FILE");
+        }
     }
 
     private void addElementToRoot(String tag, String content, Element root, Document doc) {
