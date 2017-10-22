@@ -5,8 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 /**
  * The GUI for the character sheet.
@@ -53,21 +52,30 @@ public class UserInterface {
      */
     private Tab testTab() {
         Tab tab = new Tab("Test Tab");
-        VBox tabBox = new VBox();
+        GridPane tabGrid = new GridPane();
 
-        Label name = new Label("Name:");
-        name.setId("testName");
+        Label name1 = new Label("Name:");
+        Label name2 = new Label("NO NAME LOADED");
+        name2.setId("testName");
 
-        Label adventurerClass = new Label("Class:");
-        adventurerClass.setId("testClass");
+        Label adventurerClass1 = new Label("Class:");
+        Label adventurerClass2 = new Label("NO CLASS LOADED");
+        adventurerClass2.setId("testClass");
 
-        Label classDescription = new Label("Class Description:");
-        classDescription.setId("testClassDesc");
+        Label classDescription1 = new Label("Class Description:");
+        Label classDescription2 = new Label("NO DESCRIPTION LOADED:");
+        classDescription2.setId("testClassDesc");
 
-        tabBox.getChildren().add(name);
-        tabBox.getChildren().add(adventurerClass);
-        tabBox.getChildren().add(classDescription);
-        tab.setContent(tabBox);
+        tabGrid.add(name1,0,0);
+        tabGrid.add(name2,1,0);
+
+        tabGrid.add(adventurerClass1,0,1);
+        tabGrid.add(adventurerClass2,1,1);
+
+        tabGrid.add(classDescription1,0,2);
+        tabGrid.add(classDescription2,1,2);
+
+        tab.setContent(tabGrid);
         tab.setId("testTab");
         return tab;
     }
