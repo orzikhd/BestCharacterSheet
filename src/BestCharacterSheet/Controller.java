@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import org.w3c.dom.NodeList;
 
 import java.util.HashSet;
@@ -75,7 +76,14 @@ public class Controller {
         ((Label)getByClass("MaxHealthText")).setText(Integer.toString(adventurer.getMaxHealth()));
         ((Label)getByClass("CurrHealthText")).setText(Integer.toString(adventurer.getCurrHealth()));
 
-        // ((Label)id("testHealth")).setText(Integer.toString(adventurer.().getHitDie()));
+        // clear healthbar
+        StackPane healthBar = ((StackPane)getByClass("HealthBar"));
+        while(!healthBar.getChildren().isEmpty()) {
+            healthBar.getChildren().remove(0);
+        }
+        healthBar.getChildren().add(userInterface.createBar(adventurer.getCurrHealth(),adventurer.getMaxHealth()));
+
+
     }
 
     private Node id(String id) {
