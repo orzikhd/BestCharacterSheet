@@ -19,7 +19,13 @@ public class App extends Application {
 
         PlayerHandbook playerHandbook = new PlayerHandbook();
         AdventurerLoader adventurerLoader = new AdventurerLoader();
-        adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
+        Adventurer darby = adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
+        System.out.println(darby.getName());
+        Adventurer lars = new Adventurer();
+        lars.setName("Lars clamberlot");
+        lars.setAdventurerClass(playerHandbook.getValidClasses().get("Artificer"));
+        AdventurerWriter adventurerWriter = new AdventurerWriter();
+        adventurerWriter.writeAdventurer(lars);
 
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(UI.getScene());
