@@ -15,11 +15,13 @@ public class App extends Application {
         Controller controller = new Controller();
         UserInterface UI = controller.getUI();
 
-        controller.initModel(new Adventurer());
-
         PlayerHandbook playerHandbook = new PlayerHandbook();
+
         AdventurerLoader adventurerLoader = new AdventurerLoader();
-        adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
+        Adventurer adventurer = adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
+
+        controller.initModel(adventurer);
+
 
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(UI.getScene());

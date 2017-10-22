@@ -72,7 +72,6 @@ public class AdventurerClass {
     }
 
     public String getName() {
-
         return name;
     }
 

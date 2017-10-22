@@ -62,9 +62,9 @@ public class UserInterface {
         Label adventurerClass2 = new Label("NO CLASS LOADED");
         adventurerClass2.setId("testClass");
 
-        Label classDescription1 = new Label("Class Description:");
-        Label classDescription2 = new Label("NO DESCRIPTION LOADED:");
-        classDescription2.setId("testClassDesc");
+        Label classDie1 = new Label("Class Die:");
+        Label classDie2 = new Label("NO DIE LOADED:");
+        classDie2.setId("testDie");
 
         tabGrid.add(name1,0,0);
         tabGrid.add(name2,1,0);
@@ -72,8 +72,8 @@ public class UserInterface {
         tabGrid.add(adventurerClass1,0,1);
         tabGrid.add(adventurerClass2,1,1);
 
-        tabGrid.add(classDescription1,0,2);
-        tabGrid.add(classDescription2,1,2);
+        tabGrid.add(classDie1,0,2);
+        tabGrid.add(classDie2,1,2);
 
         tab.setContent(tabGrid);
         tab.setId("testTab");

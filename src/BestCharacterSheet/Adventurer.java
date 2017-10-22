@@ -8,9 +8,17 @@ public class Adventurer {
 
     // Name of the Adventurer
     private String name;
+
+    // Class of the Adventurer
     private AdventurerClass adventurerClass;
 
     public Adventurer() {
+        this.name = "NO NAME YET";
+    }
+
+    public Adventurer(AdventurerClass adventurerClass) {
+        this();
+        this.adventurerClass = adventurerClass;
     }
 
     public String getName() {
