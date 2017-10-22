@@ -36,13 +36,15 @@ public class Controller {
         // create UI
         userInterface = new UserInterface();
 
+        /*
         Button btn = (Button)getByClass("mainbtn");
         EventHandler<ActionEvent> handler = new TestEventHandler();
         btn.setOnAction(handler);
+        */
 
         // test dmg button
-        btn = (Button)getByClass("DamageButton");
-        handler = new DamageEventHandler();
+        Button btn = (Button)getByClass("DamageButton");
+        EventHandler<ActionEvent> handler = new DamageEventHandler();
         btn.setOnAction(handler);
 
     }

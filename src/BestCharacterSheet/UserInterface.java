@@ -7,12 +7,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.geometry.*;
-
+import javafx.scene.control.*;
+import javafx.scene.shape.Rectangle;
+import javafx.geometry.Insets;
+import java.awt.*;
 
 /**
  * The GUI for the character sheet.
@@ -36,16 +43,15 @@ public class UserInterface {
 
         StackPane root = new StackPane();
 
+        /*
         Button btn = new Button();
         btn.getStyleClass().add("mainbtn");
         btn.setText("Say 'Hello World'");
-
+        */
         // The tabs that make up the main menu
         TabPane tabPane = new TabPane();
 
-        Tab tab4 = inventoryTab();
-        tabPane.getTabs().add(tab4);
-
+        /*
         Tab tab1 = new Tab();
         tab1.setText("new tab1");
         tabPane.getTabs().add(tab1);
@@ -53,9 +59,16 @@ public class UserInterface {
 
         Tab tab2 = testTab();
         tabPane.getTabs().add(tab2);
+        */
 
         Tab tab3 = summaryTab();
         tabPane.getTabs().add(tab3);
+
+        Tab tab4 = inventoryTab();
+        tabPane.getTabs().add(tab4);
+
+        Tab tab5 = notesTab();
+        tabPane.getTabs().add(tab5);
 
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
@@ -248,8 +261,24 @@ public class UserInterface {
      * @return constructed static elements of notesTab on init
      */
     private Tab notesTab() {
-        //TODO
-        return new Tab("");
+        Tab tab = new Tab("Notes Tab");
+        GridPane tabGrid = new GridPane();
+        tabGrid.setMinSize(300,300);
+
+        Label notes = new Label("Notes:");
+
+        TextArea textField = new TextArea ();
+        HBox hb = new HBox();
+        hb.setId("NotesField");
+        hb.setSpacing(10);
+        hb.setPrefSize(300,300);
+
+        tabGrid.add(notes,0,0);
+        tabGrid.add(textField,0,1);
+
+        tab.setContent(tabGrid);
+
+        return tab;
     }
 
     public static class Item {
