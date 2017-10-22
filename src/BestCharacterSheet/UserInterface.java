@@ -175,6 +175,9 @@ public class UserInterface {
         Button dmgButton = new Button("Take 1 point of damage!");
         dmgButton.getStyleClass().add("DamageButton");
 
+        Button healButton = new Button("Heal 1 point of damage!");
+        healButton.getStyleClass().add("HealButton");
+
         tabGrid.add(iv,0,0);
 
         tabGrid.add(nameStatic,0,1);
@@ -195,6 +198,7 @@ public class UserInterface {
         tabGrid.add(healthBar,0,6);
 
         tabGrid.add(dmgButton, 0, 7);
+        tabGrid.add(healButton, 0, 8);
 
         flow.getChildren().addAll(iv,tabGrid);
 

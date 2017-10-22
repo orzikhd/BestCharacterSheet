@@ -53,6 +53,11 @@ public class Controller {
         EventHandler<ActionEvent> handler = new DamageEventHandler();
         btn.setOnAction(handler);
 
+        // test heal button
+        btn = (Button)getByClass("HealButton");
+        handler = new HealEventHandler();
+        btn.setOnAction(handler);
+
     }
 
     public void initModel(Adventurer adventurer) {
@@ -87,6 +92,7 @@ public class Controller {
         // init items from inventory
         TableView table = (TableView)id("itemtable");
         final ObservableList<UserInterface.ViewItem> data = table.getItems();
+        data.clear();
         List<Item> inventory = adventurer.getInventory();
         for (Item item : inventory) {
             data.add(new UserInterface.ViewItem(item.getDescription()));
@@ -212,6 +218,32 @@ public class Controller {
         public void handle(ActionEvent e) {
             if(adventurer.getCurrHealth() > 0) {
                 adventurer.setCurrHealth(adventurer.getCurrHealth() -1);
+            }
+            writeToFile();
+            updateUI();
+        }
+
+    }
+
+
+    /**
+     * Damage event handler that tells the controller
+     * to increase the health of the adventurer on a click
+     */
+    private class HealEventHandler implements EventHandler<ActionEvent> {
+        public HealEventHandler() {
+            // THANKS JAVA
+        }
+
+        /**
+         * What happens when test event handler is fired
+         * @param e: The event
+         */
+        @Override
+        public void handle(ActionEvent e) {
+            System.out.println("firing!");
+            if(adventurer.getCurrHealth() < adventurer.getMaxHealth()) {
+                adventurer.setCurrHealth(adventurer.getCurrHealth() + 1);
             }
             writeToFile();
             updateUI();

@@ -3,8 +3,7 @@
     <name>Darby Breyha</name>
     <class>Artificer</class>
     <maxhealth>12</maxhealth>
-<<<<<<< HEAD
-    <currhealth>8</currhealth>
+    <currhealth>5</currhealth>
     <level>1</level>
     <abilityscores>10, 12, 1, 20, 15, 5</abilityscores>
     <skillproficiencies>Charisma, Stealth</skillproficiencies>
@@ -20,11 +19,6 @@
         <item>Sending Stones</item>
         <item>A potion of strength</item>
         <item>Apple</item>
+        <item>Hello</item>
     </inventory>
-=======
-    <currhealth>0</currhealth>
-    <level>1</level>
-    <abilityscores>10, 12, 1, 20, 15, 5</abilityscores>
-    <skillproficiencies>Charisma, Stealth</skillproficiencies>
->>>>>>> d0d4cd333edc24fe10a1865ddd4f3d66d687cc10
 </adventurer>
