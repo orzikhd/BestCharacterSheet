@@ -20,7 +20,10 @@ public class PlayerHandbook {
 
     private boolean dev_mode = false;
 
+    private List<AdventurerClass> validClasses;
+
     public PlayerHandbook() throws Exception {
+        this.validClasses = new ArrayList<AdventurerClass>();
         // build class dictionary
         Document classDoc = DataReader.readData(CLASS_LOCATION);
 
@@ -102,7 +105,7 @@ public class PlayerHandbook {
                 print(classFeatures.toString());
             }
 
-
+            this.validClasses.add(artificer);
 
             break; // only doing Artificer right now
         }
@@ -114,6 +117,10 @@ public class PlayerHandbook {
         // build feat dictionary
 
         // build item dictionary
+    }
+
+    public List<AdventurerClass> getValidClasses() {
+        return this.validClasses;
     }
 
     private String combineTextElements(Element root) {
