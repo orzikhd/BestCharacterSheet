@@ -8,8 +8,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
-import javafx.geometry.*;
-
+import javafx.scene.control.*;
 
 /**
  * The GUI for the character sheet.
@@ -49,6 +48,9 @@ public class UserInterface {
 
         Tab tab3 = summaryTab();
         tabPane.getTabs().add(tab3);
+
+        Tab tab4 = notesTab();
+        tabPane.getTabs().add(tab4);
 
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
@@ -189,8 +191,24 @@ public class UserInterface {
      * @return constructed static elements of notesTab on init
      */
     private Tab notesTab() {
-        //TODO
-        return new Tab("");
+        Tab tab = new Tab("Notes Tab");
+        GridPane tabGrid = new GridPane();
+        tabGrid.setMinSize(300,300);
+
+        Label notes = new Label("Notes:");
+
+        TextArea textField = new TextArea ();
+        HBox hb = new HBox();
+        hb.setId("NotesField");
+        hb.setSpacing(10);
+        hb.setPrefSize(300,300);
+
+        tabGrid.add(notes,0,0);
+        tabGrid.add(textField,0,1);
+
+        tab.setContent(tabGrid);
+
+        return tab;
     }
 
 
