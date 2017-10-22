@@ -89,7 +89,22 @@ public class Adventurer {
     // Skill Proficiencies
     private Set<String> skillProficiencies;
 
+    // Item Inventory
+    private List<Item> inventory;
+
     public Adventurer() {   }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(List<Item> inventory) {
+        this.inventory = inventory;
+    }
+
+    public void addItem(Item item) {
+        this.inventory.add(item);
+    }
 
     public Integer getLevel() {
         return level;

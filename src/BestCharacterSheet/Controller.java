@@ -1,15 +1,21 @@
 package BestCharacterSheet;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Observable;
 import java.util.Set;
 
 /**
@@ -77,6 +83,29 @@ public class Controller {
         ((Label)getByClass("HitDie")).setText(Integer.toString(adventurer.getAdventurerClass().getHitDie()));
         ((Label)getByClass("MaxHealthText")).setText(Integer.toString(adventurer.getMaxHealth()));
         ((Label)getByClass("CurrHealthText")).setText(Integer.toString(adventurer.getCurrHealth()));
+
+        // init items from inventory
+        TableView table = (TableView)id("itemtable");
+        final ObservableList<UserInterface.ViewItem> data = table.getItems();
+        List<Item> inventory = adventurer.getInventory();
+        for (Item item : inventory) {
+            data.add(new UserInterface.ViewItem(item.getDescription()));
+        }
+
+        Button inventoryButton = (Button)id("inventoryButton");
+        final TextField addItem = (TextField)id("inventoryAddItem");
+        inventoryButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String description = addItem.getText();
+                if (description.trim().length() >= 1) {
+                    data.add(new UserInterface.ViewItem(description));
+                    adventurer.addItem(new Item(description));
+                    writeToFile();
+                    addItem.clear();
+                }
+            }
+        });
 
         // clear healthbar
         StackPane healthBar = ((StackPane)getByClass("HealthBar"));

@@ -7,4 +7,8 @@
     <level>3</level>
     <abilityscores>10, 10, 10, 10, 10, 10</abilityscores>
     <skillproficiencies>Athletics, Persuasion</skillproficiencies>
+    <inventory>
+        <item>apple</item>
+        <item>sword</item>
+    </inventory>
 </adventurer>

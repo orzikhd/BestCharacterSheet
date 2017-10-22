@@ -3,9 +3,11 @@ package BestCharacterSheet;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 
 /**
@@ -27,6 +29,7 @@ public class App extends Application {
         System.out.println("ability mods: " + darby.getAbilityModifiers());
         System.out.println("skill profs: " + darby.getSkillProficiencies());
         System.out.println("prof bonuses: " + darby.getProficiencyBonus());
+        System.out.println("items: " + darby.getInventory());
         System.out.println(darby.getSkillModifiers());
 
         Adventurer lars = new Adventurer();
@@ -39,6 +42,10 @@ public class App extends Application {
         Integer[] abilityscores = {10, 10, 10, 10, 10, 10};
         lars.setSkillProficiencies(new HashSet<String>(Arrays.asList("Athletics", "Persuasion")));
         lars.setAbilityScores(new ArrayList<Integer>(Arrays.asList(abilityscores)));
+        List<Item> inventory = new ArrayList<Item>();
+        inventory.add(new Item("apple"));
+        inventory.add(new Item("sword"));
+        lars.setInventory(inventory);
         System.out.println(lars.getSkillModifiers());
 
         AdventurerWriter adventurerWriter = new AdventurerWriter();

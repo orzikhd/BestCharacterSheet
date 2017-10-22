@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.List;
 
 public class AdventurerWriter {
     public AdventurerWriter() {
@@ -45,6 +46,14 @@ public class AdventurerWriter {
         // add skill proficiencies set
         String skillProficienciesString = adventurer.getSkillProficiencies().toString();
         addElementFromArrayStringToRoot("skillproficiencies", skillProficienciesString, rootElement, doc);
+
+        // add inventory
+        List<Item> inventory = adventurer.getInventory();
+        Element inventoryElem = doc.createElement("inventory");
+        for (Item item : inventory) {
+            addElementToRoot("item", item.getDescription(), inventoryElem, doc);
+        }
+        rootElement.appendChild(inventoryElem);
 
         try {
             DataWriter.writeData("src/adventurers/" + adventurer.getName() + ".xml", doc);

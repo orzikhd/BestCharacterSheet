@@ -13,13 +13,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-import javafx.scene.control.*;
 import javafx.scene.shape.Rectangle;
 import javafx.geometry.Insets;
-import java.awt.*;
 
 /**
  * The GUI for the character sheet.
@@ -198,42 +194,40 @@ public class UserInterface {
 
         TableView table = new TableView();
         table.setMaxWidth(802);
+        table.setMinHeight(600);
         table.setEditable(true);
-        TableColumn itemColumn = new TableColumn("Item Description");
+        TableColumn itemColumn = new TableColumn("Item Descriptions");
         itemColumn.setMinWidth(800);
-        itemColumn.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
+        itemColumn.setCellValueFactory(new PropertyValueFactory<ViewItem, String>("description"));
 
-        final ObservableList<Item> data =
-                FXCollections.observableArrayList(
-                        new Item("Jar of Pixie Dust")
-                        , new Item("Longsword")
-                        , new Item("Alchemist Satchel")
-                        , new Item("Potion Kit")
-                        , new Item("50ft of rope")
-                        , new Item("Vial of oil (3)")
-                        , new Item("Bulls-eye Lantern")
-                        , new Item("Set of noblesman clothes")
-                        , new Item("Sending Stones")
+        final ObservableList<ViewItem> data =
+                FXCollections.observableArrayList();
+
+        /*
+                        new ViewItem("Jar of Pixie Dust")
+                        , new ViewItem("Longsword")
+                        , new ViewItem("Alchemist Satchel")
+                        , new ViewItem("Potion Kit")
+                        , new ViewItem("50ft of rope")
+                        , new ViewItem("Vial of oil (3)")
+                        , new ViewItem("Bulls-eye Lantern")
+                        , new ViewItem("Set of noblesman clothes")
+                        , new ViewItem("Sending Stones")
                 );
+        */
 
         table.setItems(data);
+        table.setId("itemtable");
         table.getColumns().addAll(itemColumn);
 
         // ability to add a row
         final TextField addItem = new TextField();
+        addItem.setId("inventoryAddItem");
         addItem.setPromptText("Add an item");
         addItem.setMaxWidth(300);
 
         final Button addButton = new Button("Add");
-        addButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if (addItem.getText().trim().length() >= 1) {
-                    data.add(new Item(addItem.getText()));
-                    addItem.clear();
-                }
-            }
-        });
+        addButton.setId("inventoryButton");
 
         final HBox hb = new HBox();
         hb.getChildren().addAll(addItem, addButton);
@@ -267,7 +261,7 @@ public class UserInterface {
 
         Label notes = new Label("Notes:");
 
-        TextArea textField = new TextArea ();
+        TextArea textField = new TextArea();
         HBox hb = new HBox();
         hb.setId("NotesField");
         hb.setSpacing(10);
@@ -281,10 +275,10 @@ public class UserInterface {
         return tab;
     }
 
-    public static class Item {
+    public static class ViewItem {
         private final SimpleStringProperty description;
 
-        private Item(String description) {
+        public ViewItem(String description) {
             this.description = new SimpleStringProperty(description);
         }
 
