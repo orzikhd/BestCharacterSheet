@@ -1,4 +1,4 @@
-package sample;
+package BestCharacterSheet;
 
 public class Controller {
 }
