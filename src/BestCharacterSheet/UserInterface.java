@@ -8,6 +8,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
+import javafx.geometry.*;
 
 
 /**
@@ -53,7 +54,9 @@ public class UserInterface {
 
         root.getChildren().add(tabPane);
 
+
         scene = new Scene(root, WIDTH, HEIGHT);
+        scene.getStylesheets().add("stylesheet.css");
     }
 
     /**
