@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -12,14 +13,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
+
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-import javafx.scene.control.*;
+
 import javafx.scene.shape.Rectangle;
 import javafx.geometry.Insets;
-import java.awt.*;
+
 
 /**
  * The GUI for the character sheet.
@@ -137,7 +139,26 @@ public class UserInterface {
      */
     private Tab summaryTab() {
         Tab tab = new Tab("Summary Tab");
+
+        // load class image
+        Image image = new Image("images/classes/artificer.jpg");
+
+        // Resize the image to have width of 100 while preserving the ratio and using
+        // higher quality filtering method; this ImageView is also cached to
+        // improve performance
+        ImageView iv = new ImageView();
+        iv.setImage(image);
+        iv.setFitWidth(300);
+        iv.setPreserveRatio(true);
+        iv.setSmooth(true);
+        iv.setCache(true);
+
+
+        FlowPane flow = new FlowPane();
+        flow.setMargin(iv,new Insets(30));
+
         GridPane tabGrid = new GridPane();
+
 
         Label nameStatic = new Label("Name:");
         Label nameDynamic = new Label("NO NAME LOADED");
@@ -162,29 +183,33 @@ public class UserInterface {
         StackPane healthBar = new StackPane();
         healthBar.getStyleClass().add("HealthBar");
 
-        Button dmgButton = new Button("Take 1 point damage!");
+        Button dmgButton = new Button("Take 1 point of damage!");
         dmgButton.getStyleClass().add("DamageButton");
 
-        tabGrid.add(nameStatic,0,0);
-        tabGrid.add(nameDynamic,1,0);
+        tabGrid.add(iv,0,0);
 
-        tabGrid.add(adventurerClassStatic,0,1);
-        tabGrid.add(adventurerClassDynamic,1,1);
+        tabGrid.add(nameStatic,0,1);
+        tabGrid.add(nameDynamic,1,1);
 
-        tabGrid.add(classDieStatic,0,2);
-        tabGrid.add(classDieDynamic,1,2);
+        tabGrid.add(adventurerClassStatic,0,2);
+        tabGrid.add(adventurerClassDynamic,1,2);
 
-        tabGrid.add(maxHealthStatic, 0, 3);
-        tabGrid.add(maxHealthDynamic, 1, 3);
+        tabGrid.add(classDieStatic,0,3);
+        tabGrid.add(classDieDynamic,1,3);
 
-        tabGrid.add(currHealthStatic, 0, 4);
-        tabGrid.add(currHealthDynamic, 1, 4);
+        tabGrid.add(maxHealthStatic, 0, 4);
+        tabGrid.add(maxHealthDynamic, 1, 4);
 
-        tabGrid.add(healthBar,0,5);
+        tabGrid.add(currHealthStatic, 0, 5);
+        tabGrid.add(currHealthDynamic, 1, 5);
 
-        tabGrid.add(dmgButton, 0, 6);
+        tabGrid.add(healthBar,0,6);
 
-        tab.setContent(tabGrid);
+        tabGrid.add(dmgButton, 0, 7);
+
+        flow.getChildren().addAll(iv,tabGrid);
+
+        tab.setContent(flow);
         tab.setId("summaryTab");
         return tab;
     }
@@ -193,7 +218,6 @@ public class UserInterface {
      * @return constructed static elements of inventoryTab on init
      */
     private Tab inventoryTab() {
-        //TODO
         Tab tab = new Tab("Inventory");
 
         TableView table = new TableView();

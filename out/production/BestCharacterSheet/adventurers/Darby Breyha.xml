@@ -3,15 +3,8 @@
     <name>Darby Breyha</name>
     <class>Artificer</class>
     <maxhealth>12</maxhealth>
-<<<<<<< HEAD
-    <currhealth>9</currhealth>
-    <level>1</level>
-    <abilityscores>10, 12, 1, 20, 15, 5</abilityscores>
-    <skillproficiencies>Charisma, Stealth</skillproficiencies>
-=======
     <currhealth>0</currhealth>
     <level>1</level>
     <abilityscores>10, 12, 1, 20, 15, 5</abilityscores>
-    <skillproficiencies>Deception, Persuasion</skillproficiencies>
->>>>>>> f605b0f7cbaf89211e8fc16f14bbac81d7b50012
+    <skillproficiencies>Charisma, Stealth</skillproficiencies>
 </adventurer>

@@ -3,7 +3,7 @@
     <name>Darby Breyha</name>
     <class>Artificer</class>
     <maxhealth>12</maxhealth>
-    <currhealth>8</currhealth>
+    <currhealth>0</currhealth>
     <level>1</level>
     <abilityscores>10, 12, 1, 20, 15, 5</abilityscores>
     <skillproficiencies>Charisma, Stealth</skillproficiencies>
