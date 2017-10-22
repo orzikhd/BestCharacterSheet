@@ -25,6 +25,5 @@ public class DataWriter {
         StreamResult result = new StreamResult(new File(location));
 
         transformer.transform(source, result);
-        System.out.println("done");
     }
 }

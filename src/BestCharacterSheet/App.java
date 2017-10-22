@@ -24,13 +24,6 @@ public class App extends Application {
 
         AdventurerLoader adventurerLoader = new AdventurerLoader();
         Adventurer darby = adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
-        System.out.println("name: " + darby.getName());
-        System.out.println("ability scores: " + darby.getAbilityScores());
-        System.out.println("ability mods: " + darby.getAbilityModifiers());
-        System.out.println("skill profs: " + darby.getSkillProficiencies());
-        System.out.println("prof bonuses: " + darby.getProficiencyBonus());
-        System.out.println("items: " + darby.getInventory());
-        System.out.println(darby.getSkillModifiers());
 
         Adventurer lars = new Adventurer();
         lars.setName("Lars clamberlot");
@@ -38,7 +31,7 @@ public class App extends Application {
         lars.setMaxHealth(8);
         lars.setCurrHealth(7);
         lars.setLevel(3);
-        System.out.println(lars.getProficiencyBonus());
+
         Integer[] abilityscores = {10, 10, 10, 10, 10, 10};
         lars.setSkillProficiencies(new HashSet<String>(Arrays.asList("Athletics", "Persuasion")));
         lars.setAbilityScores(new ArrayList<Integer>(Arrays.asList(abilityscores)));
@@ -46,7 +39,6 @@ public class App extends Application {
         inventory.add(new Item("apple"));
         inventory.add(new Item("sword"));
         lars.setInventory(inventory);
-        System.out.println(lars.getSkillModifiers());
 
         AdventurerWriter adventurerWriter = new AdventurerWriter();
         adventurerWriter.writeAdventurer(lars);

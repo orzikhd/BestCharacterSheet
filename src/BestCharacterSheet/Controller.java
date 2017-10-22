@@ -88,6 +88,8 @@ public class Controller {
         ((Label)getByClass("HitDie")).setText(Integer.toString(adventurer.getAdventurerClass().getHitDie()));
         ((Label)getByClass("MaxHealthText")).setText(Integer.toString(adventurer.getMaxHealth()));
         ((Label)getByClass("CurrHealthText")).setText(Integer.toString(adventurer.getCurrHealth()));
+        ((Label)getByClass("LevelText")).setText(Integer.toString(adventurer.getLevel()));
+
 
         // init items from inventory
         TableView table = (TableView)id("itemtable");
@@ -241,7 +243,6 @@ public class Controller {
          */
         @Override
         public void handle(ActionEvent e) {
-            System.out.println("firing!");
             if(adventurer.getCurrHealth() < adventurer.getMaxHealth()) {
                 adventurer.setCurrHealth(adventurer.getCurrHealth() + 1);
             }
