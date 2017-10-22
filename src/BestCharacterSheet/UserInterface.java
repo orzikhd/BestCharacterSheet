@@ -1,10 +1,13 @@
 package BestCharacterSheet;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
@@ -39,6 +42,10 @@ public class UserInterface {
 
         // The tabs that make up the main menu
         TabPane tabPane = new TabPane();
+
+        Tab tab4 = inventoryTab();
+        tabPane.getTabs().add(tab4);
+
         Tab tab1 = new Tab();
         tab1.setText("new tab1");
         tabPane.getTabs().add(tab1);
@@ -174,7 +181,59 @@ public class UserInterface {
      */
     private Tab inventoryTab() {
         //TODO
-        return new Tab("Inventory");
+        Tab tab = new Tab("Inventory");
+
+        TableView table = new TableView();
+        table.setMaxWidth(802);
+        table.setEditable(true);
+        TableColumn itemColumn = new TableColumn("Item Description");
+        itemColumn.setMinWidth(800);
+        itemColumn.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
+
+        final ObservableList<Item> data =
+                FXCollections.observableArrayList(
+                        new Item("Jar of Pixie Dust")
+                        , new Item("Longsword")
+                        , new Item("Alchemist Satchel")
+                        , new Item("Potion Kit")
+                        , new Item("50ft of rope")
+                        , new Item("Vial of oil (3)")
+                        , new Item("Bulls-eye Lantern")
+                        , new Item("Set of noblesman clothes")
+                        , new Item("Sending Stones")
+                );
+
+        table.setItems(data);
+        table.getColumns().addAll(itemColumn);
+
+        // ability to add a row
+        final TextField addItem = new TextField();
+        addItem.setPromptText("Add an item");
+        addItem.setMaxWidth(300);
+
+        final Button addButton = new Button("Add");
+        addButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (addItem.getText().trim().length() >= 1) {
+                    data.add(new Item(addItem.getText()));
+                    addItem.clear();
+                }
+            }
+        });
+
+        final HBox hb = new HBox();
+        hb.getChildren().addAll(addItem, addButton);
+        hb.setSpacing(5);
+
+        final VBox vBox = new VBox();
+        vBox.setSpacing(5);
+        vBox.setPadding(new Insets(20, 0, 0, 100));
+        vBox.getChildren().addAll(table, hb);
+
+        tab.setContent(vBox);
+
+        return tab;
     }
 
     /**
@@ -193,7 +252,21 @@ public class UserInterface {
         return new Tab("");
     }
 
+    public static class Item {
+        private final SimpleStringProperty description;
 
+        private Item(String description) {
+            this.description = new SimpleStringProperty(description);
+        }
+
+        public String getDescription() {
+            return description.get();
+        }
+
+        public void setDescription(String description) {
+            this.description.set(description);
+        }
+    }
 
 
 
