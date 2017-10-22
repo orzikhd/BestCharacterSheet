@@ -3,6 +3,8 @@ package BestCharacterSheet;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -24,6 +26,11 @@ public class App extends Application {
         Adventurer lars = new Adventurer();
         lars.setName("Lars clamberlot");
         lars.setAdventurerClass(playerHandbook.getValidClasses().get("Artificer"));
+        lars.setMaxHealth(8);
+        lars.setCurrHealth(7);
+        Integer[] abilityscores = {10, 10, 10, 10, 10, 10};
+        lars.setAbilityScores(new ArrayList<Integer>(Arrays.asList(abilityscores)));
+
         AdventurerWriter adventurerWriter = new AdventurerWriter();
         adventurerWriter.writeAdventurer(lars);
 

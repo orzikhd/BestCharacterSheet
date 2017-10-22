@@ -63,6 +63,10 @@ public class Controller {
         ((Label)id("testClass")).setText(adventurer.getAdventurerClass().getName());
         System.out.println("got here2!");
         ((Label)id("testDie")).setText(Integer.toString(adventurer.getAdventurerClass().getHitDie()));
+        Integer.toString(adventurer.getMaxHealth());
+        Integer.toString(adventurer.getCurrHealth());
+        ((Label)id("testMaxHealth")).setText(Integer.toString(adventurer.getMaxHealth()));
+        ((Label)id("testCurrHealth")).setText(Integer.toString(adventurer.getCurrHealth()));
 
     }
 

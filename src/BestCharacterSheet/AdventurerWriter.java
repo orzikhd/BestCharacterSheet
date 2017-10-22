@@ -25,6 +25,16 @@ public class AdventurerWriter {
                 rootElement, doc);
         addElementToRoot("class", adventurer.getAdventurerClass().getName(),
                 rootElement, doc);
+        addElementToRoot("maxhealth", adventurer.getMaxHealth().toString(),
+                rootElement, doc);
+        addElementToRoot("currhealth", adventurer.getCurrHealth().toString(),
+                rootElement, doc);
+
+        // remove brackets
+        String abilityScoresString = adventurer.getAbilityScores().toString().substring(1);
+        abilityScoresString = abilityScoresString.substring(0, abilityScoresString.length() - 1);
+        addElementToRoot("abilityscores", abilityScoresString,
+                rootElement, doc);
 
         DataWriter.writeData("src/adventurers/" + adventurer.getName() + ".xml", doc);
     }

@@ -66,6 +66,14 @@ public class UserInterface {
         Label classDie2 = new Label("NO DIE LOADED:");
         classDie2.setId("testDie");
 
+        Label maxHealth1 = new Label("Max Health:");
+        Label maxHealth2 = new Label("NO MAX HEALTH LOADED");
+        maxHealth2.setId("testMaxHealth");
+
+        Label currHealth1 = new Label("Curr Health:");
+        Label currHealth2 = new Label("NO CURR HEALTH LOADED");
+        currHealth2.setId("testCurrHealth");
+
         tabGrid.add(name1,0,0);
         tabGrid.add(name2,1,0);
 
@@ -74,6 +82,13 @@ public class UserInterface {
 
         tabGrid.add(classDie1,0,2);
         tabGrid.add(classDie2,1,2);
+
+        tabGrid.add(maxHealth1, 0, 3);
+        tabGrid.add(maxHealth2, 1, 3);
+
+        tabGrid.add(currHealth1, 0, 4);
+        tabGrid.add(currHealth2, 1, 4);
+
 
         tab.setContent(tabGrid);
         tab.setId("testTab");

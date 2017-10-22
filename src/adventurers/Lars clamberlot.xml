@@ -2,4 +2,7 @@
 <adventurer>
     <name>Lars clamberlot</name>
     <class>Artificer</class>
+    <maxhealth>8</maxhealth>
+    <currhealth>7</currhealth>
+    <abilityscores>10, 10, 10, 10, 10, 10</abilityscores>
 </adventurer>

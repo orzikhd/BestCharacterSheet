@@ -5,4 +5,6 @@
 	<class>Artificer</class>
 	<subclass></subclass>
 	<background>Acolyte</background>
+	<maxhealth>12</maxhealth>
+	<currhealth>6</currhealth>
 </adventurer>

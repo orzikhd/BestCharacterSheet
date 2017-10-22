@@ -1,5 +1,8 @@
 package BestCharacterSheet;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Contains the model data for a DnD
  * Adventurer.
@@ -12,17 +15,53 @@ public class Adventurer {
     // Class of the Adventurer
     private AdventurerClass adventurerClass;
 
-    public Adventurer() {
-        this.name = "NO NAME YET";
+    // Max Health of the Adventurer
+    private Integer maxHealth;
+
+    // Current Health of the Adventurer
+    private Integer currHealth;
+
+    public List<Integer> getAbilityScores() {
+        return abilityScores;
     }
 
-    public Adventurer(AdventurerClass adventurerClass) {
-        this();
-        this.adventurerClass = adventurerClass;
+    public List<Integer> getAbilityModifiers() {
+        List<Integer> res = new ArrayList<Integer>();
+
+        for (Integer i : abilityScores) {
+            res.add((int)Math.floor(((double)(i - 10))/2.0));
+        }
+
+        return res;
     }
+
+    public void setAbilityScores(List<Integer> abilityScores) {
+        this.abilityScores = abilityScores;
+    }
+
+    // Current Ability Scores of the Adventurer
+    private List<Integer> abilityScores;
+
+    public Adventurer() {   }
 
     public String getName() {
         return name;
+    }
+
+    public Integer getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(Integer maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public Integer getCurrHealth() {
+        return currHealth;
+    }
+
+    public void setCurrHealth(Integer currHealth) {
+        this.currHealth = currHealth;
     }
 
     public void setName(String name) {
