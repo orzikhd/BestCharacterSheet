@@ -111,7 +111,6 @@ public class UserInterface {
      * @return constructed static elements of testTab on init
      */
     private Tab testTab() {
-        System.out.println("Initializing Test Tab");
         Tab tab = new Tab("Test Tab");
         GridPane tabGrid = new GridPane();
 
@@ -165,9 +164,13 @@ public class UserInterface {
         Label maxHealthDynamic = new Label("NO MAX HEALTH LOADED");
         maxHealthDynamic.getStyleClass().add("MaxHealthText");
 
-        Label currHealthStatic = new Label("Curr Health:");
+        Label currHealthStatic = new Label("Current Health:");
         Label currHealthDynamic = new Label("NO CURR HEALTH LOADED");
         currHealthDynamic.getStyleClass().add("CurrHealthText");
+
+        Label levelStatic = new Label("Level:");
+        Label levelDynamic = new Label("NO LEVEL LOADED");
+        levelDynamic.getStyleClass().add("LevelText");
 
         StackPane healthBar = new StackPane();
         healthBar.getStyleClass().add("HealthBar");
@@ -195,10 +198,14 @@ public class UserInterface {
         tabGrid.add(currHealthStatic, 0, 5);
         tabGrid.add(currHealthDynamic, 1, 5);
 
-        tabGrid.add(healthBar,0,6);
+        tabGrid.add(levelStatic, 0, 6);
+        tabGrid.add(levelDynamic, 1, 6);
 
-        tabGrid.add(dmgButton, 0, 7);
-        tabGrid.add(healButton, 0, 8);
+        tabGrid.add(healthBar,0,7);
+
+        tabGrid.add(dmgButton, 0, 8);
+
+        tabGrid.add(healButton, 0, 9);
 
         flow.getChildren().addAll(iv,tabGrid);
 
