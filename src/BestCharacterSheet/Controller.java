@@ -35,6 +35,7 @@ public class Controller {
         }
         this.adventurer = adventurer;
 
+        System.out.println("got here!");
         updateTest();
 
     }
@@ -59,6 +60,10 @@ public class Controller {
      */
     private void updateTest(){
         ((Label)id("testName")).setText(adventurer.getName());
+        ((Label)id("testClass")).setText(adventurer.getAdventurerClass().getName());
+        System.out.println("got here2!");
+        ((Label)id("testDie")).setText(Integer.toString(adventurer.getAdventurerClass().getHitDie()));
+
     }
 
     // EVENT HANDLERS
@@ -84,8 +89,16 @@ public class Controller {
     }
 
     private Node id(String id) {
-        Scene scene = userInterface.getScene();
-        return scene.lookup("#"+id);
+        try {
+            Scene scene = userInterface.getScene();
+            if (scene == null) {
+                throw new Exception("id: The node returned is null!");
+            }
+            return scene.lookup("#" + id);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
 }

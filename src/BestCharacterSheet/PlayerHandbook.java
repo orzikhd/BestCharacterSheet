@@ -22,10 +22,38 @@ public class PlayerHandbook {
 
     private boolean dev_mode = false;
 
-    private Map<String, AdventurerClass> validClasses;
+    private HashMap<String,AdventurerClass> Classes;
+    private HashMap<String,Race> Races;
 
     public PlayerHandbook() throws Exception {
-        this.validClasses = new HashMap<String, AdventurerClass>();
+        this.Races = new HashMap<String, Race>();;
+        this.Classes = new HashMap<String, AdventurerClass>();
+
+        populateClasses();
+
+        // build race dictionary
+
+        // build background dictionary
+
+        // build feat dictionary
+
+        // build item dictionary
+    }
+
+    public void populateRaces() throws Exception {
+        // build race dictionary
+        Document raceDoc = DataReader.readData(RACE_LOCATION);
+
+        NodeList races = raceDoc.getElementsByTagName("class");
+        for (int i = 0; i < races.getLength(); i++) {
+            Race aRace = new Race();
+            Element race = (Element) races.item(i);
+        }
+
+    }
+
+    public void populateClasses() throws Exception {
+
         // build class dictionary
         Document classDoc = DataReader.readData(CLASS_LOCATION);
 
@@ -107,22 +135,15 @@ public class PlayerHandbook {
                 print(classFeatures.toString());
             }
 
-            this.validClasses.put(name, artificer);
+            this.Classes.put(name, artificer);
 
             break; // only doing Artificer right now
         }
 
-        // build race dictionary
-
-        // build background dictionary
-
-        // build feat dictionary
-
-        // build item dictionary
     }
-
     public Map<String, AdventurerClass> getValidClasses() {
-        return this.validClasses;
+        return this.Classes;
+
     }
 
     private String combineTextElements(Element root) {

@@ -15,17 +15,19 @@ public class App extends Application {
         Controller controller = new Controller();
         UserInterface UI = controller.getUI();
 
-        controller.initModel(new Adventurer());
-
         PlayerHandbook playerHandbook = new PlayerHandbook();
+
         AdventurerLoader adventurerLoader = new AdventurerLoader();
         Adventurer darby = adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
         System.out.println(darby.getName());
+
         Adventurer lars = new Adventurer();
         lars.setName("Lars clamberlot");
         lars.setAdventurerClass(playerHandbook.getValidClasses().get("Artificer"));
         AdventurerWriter adventurerWriter = new AdventurerWriter();
         adventurerWriter.writeAdventurer(lars);
+
+        controller.initModel(darby);
 
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(UI.getScene());
