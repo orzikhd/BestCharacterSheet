@@ -18,6 +18,8 @@ public class PlayerHandbook {
 
     public static final String MUNDANE_ITEMS_LOCATION = "src/data/Mundane Items.xml";
 
+    private boolean dev_mode = false;
+
     public PlayerHandbook() throws Exception {
         // build class dictionary
         Document classDoc = DataReader.readData(CLASS_LOCATION);
@@ -125,6 +127,8 @@ public class PlayerHandbook {
     }
 
     private void print(String toPrint) {
-        System.out.println(toPrint);
+        if (dev_mode) {
+            System.out.println(toPrint);
+        }
     }
 }

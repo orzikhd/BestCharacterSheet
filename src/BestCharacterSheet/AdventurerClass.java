@@ -11,7 +11,6 @@ public class AdventurerClass {
     private String startingProficiencies;
     private String startingEquipment;
     private List<List<ClassFeature>> featuresPerLevel;
-
     public AdventurerClass() {
 
     }
