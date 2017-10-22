@@ -5,6 +5,7 @@
 		<size>M</size>
 		<speed>25</speed>
 		<ability>Dex 2, Wis 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Flight</name>
 			<text>You have a flying speed of 50 feet. To use this speed, you can't be wearing medium or heavy armor.</text>
@@ -14,7 +15,7 @@
 			<text>You are proficient with your unarmed strikes, which deal 1d4 slashing damage on a hit.</text>
 		</trait>
 		<trait>
-			<name>Language</name>
+			<name>Languages</name>
 			<text>You can speak, read, and write Common, Aarakocra, and Auran.</text>
 		</trait>
 	</race>
@@ -23,6 +24,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Con 2, Dex 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Unending Breath</name>
 			<text>You can hold your breath indefinitely while you're not incapacitated.</text>
@@ -80,6 +82,7 @@
 		<size>S</size>
 		<speed>25</speed>
 		<ability>Int 2, Dex 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Superior Darkvision</name>
 			<text>Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 120 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.</text>
@@ -102,6 +105,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Str 2, Cha 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Draconic Ancestry</name>
 			<text>You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table. (Player's Handbook p. 34)</text>
@@ -128,6 +132,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Con 2, Str 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Earth Walk</name>
 			<text>You can move across difficult terrain made of earth or stone without expending extra movement.</text>
@@ -181,6 +186,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Con 2, Int 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Darkvision</name>
 			<text>You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. Your ties to the Elemental Plane of Fire make your darkvision unusual: everything you see in darkness is in a shade of red.</text>
@@ -203,6 +209,7 @@
 		<size>S</size>
 		<speed>25</speed>
 		<ability>Int 2, Dex 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Darkvision</name>
 			<text>Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.</text>
@@ -256,6 +263,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Cha 2</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Ability Score Increase</name>
 			<text>Two different ability scores of your choice increase by 1.</text>
@@ -344,6 +352,7 @@
 		<size>M</size>
 		<speed>25</speed>
 		<ability>Con 2, Wis 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Darkvision</name>
 			<text>Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.</text>
@@ -378,6 +387,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Str 1, Dex 1, Con 1, Int 1, Wis 1, Cha 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Languages</name>
 			<text>You can speak, read, and write Common and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on.</text>
@@ -387,6 +397,8 @@
 		<name>Human (Variant)</name>
 		<size>M</size>
 		<speed>30</speed>
+		<ability></ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Ability Score Increase</name>
 			<text>Two different ability scores of your choice increase by 1.</text>
@@ -409,6 +421,7 @@
 		<size>S</size>
 		<speed>25</speed>
 		<ability>Dex 2, Cha 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Lucky</name>
 			<text>When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</text>
@@ -435,6 +448,7 @@
 		<size>M</size>
 		<speed>25</speed>
 		<ability>Con 2, Str 2</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Darkvision</name>
 			<text>Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.</text>
@@ -469,6 +483,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Dex 2</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Darkvision</name>
 			<text>Your lycanthropic heritage grants you the ability to see in dark conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.</text>
@@ -495,6 +510,7 @@
 		<size>S</size>
 		<speed>25</speed>
 		<ability>Int 2, Con 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Darkvision</name>
 			<text>Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.</text>
@@ -529,6 +545,7 @@
 		<size>S</size>
 		<speed>25</speed>
 		<ability>Dex 2, Con 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Lucky</name>
 			<text>When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</text>
@@ -555,6 +572,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Cha 2, Int 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Darkvision</name>
 			<text>Thanks to your infernal heritage, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.</text>
@@ -596,6 +614,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Con 2, Wis 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Acid Resistance</name>
 			<text>You have resistance to acid damage.</text>
@@ -622,6 +641,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Dex 1, Wis 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Darkvision</name>
 			<text>Your lycanthropic heritage grants you the ability to see in dark conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.</text>
@@ -687,6 +707,7 @@
 		<size>M</size>
 		<speed>25</speed>
 		<ability>Con 2, Str 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Superior Darkvision</name>
 			<text>Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 120 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.</text>
@@ -725,6 +746,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Cha 2</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Ability Score Increase</name>
 			<text>Two different ability scores of your choice increase by 1.</text>
@@ -761,6 +783,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Cha 2</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Ability Score Increase</name>
 			<text>Two different ability scores of your choice increase by 1.</text>
@@ -794,6 +817,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Cha 2</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Ability Score Increase</name>
 			<text>Two different ability scores of your choice increase by 1.</text>
@@ -824,6 +848,7 @@
 		<size>M</size>
 		<speed>30</speed>
 		<ability>Cha 2</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Ability Score Increase</name>
 			<text>Two different ability scores of your choice increase by 1.</text>
@@ -855,6 +880,7 @@
 		<size>S</size>
 		<speed>25</speed>
 		<ability>Dex 2, Wis 1</ability>
+		<proficiency></proficiency>
 		<trait>
 			<name>Lucky</name>
 			<text>When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</text>

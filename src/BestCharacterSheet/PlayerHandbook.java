@@ -4,10 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PlayerHandbook {
     public static final String CLASS_LOCATION = "src/data/Classes.xml";
@@ -30,6 +27,7 @@ public class PlayerHandbook {
         this.Classes = new HashMap<String, AdventurerClass>();
 
         populateClasses();
+        populateRaces();
 
         // build race dictionary
 
@@ -45,9 +43,55 @@ public class PlayerHandbook {
         Document raceDoc = DataReader.readData(RACE_LOCATION);
 
         NodeList races = raceDoc.getElementsByTagName("class");
+        print("NodeList Race length = " + races.getLength());
         for (int i = 0; i < races.getLength(); i++) {
             Race aRace = new Race();
             Element race = (Element) races.item(i);
+
+            // Name
+            String name = race.getElementsByTagName("name").item(0).getTextContent();
+            aRace.setName(name);
+            print(name);
+
+            // Size
+            String size = race.getElementsByTagName("size").item(0).getTextContent();
+            aRace.setSize(size);
+            print(size);
+
+            // Speed
+            Integer speed = Integer.parseInt(
+                    race.getElementsByTagName("speed").item(0).getTextContent());
+            aRace.setSpeed(speed);
+            print(Integer.toString(speed));
+
+            // Fill ability score increase map
+            String ability = race.getElementsByTagName("ability").item(0).getTextContent();
+            String[] abilityArray = ability.split(" ");
+            HashMap<String,Integer> abilityMap = new HashMap<String,Integer>();
+            for(int j = 0; j < abilityArray.length; j++) {
+                String[] stringArray = abilityArray[j].split(" ");
+                abilityMap.put(stringArray[0],Integer.parseInt(stringArray[1]));
+            }
+            aRace.setAbilityScoreIncrease(abilityMap);
+            print(abilityMap.toString());
+
+            // Proficiency
+            String proficiency = race.getElementsByTagName("proficiency").item(0).getTextContent();
+            aRace.setProficiency(proficiency);
+            print(proficiency);
+
+            // Fill trait map
+            NodeList traits = race.getElementsByTagName("trait");
+            List<Race.Trait> traitList = new ArrayList<Race.Trait>();
+            for(int j = 0; j < traits.getLength(); j++) {
+                Element traitElement = (Element)traits.item(j);
+                String traitName = traitElement.getElementsByTagName("name").item(0).getTextContent();
+                String description = combineTextElements(traitElement);
+                Race.Trait trait = aRace.new Trait(traitName, description);
+                traitList.add(trait);
+            }
+            aRace.setTraits(traitList);
+            print(traitList.toString());
         }
 
     }
@@ -65,7 +109,6 @@ public class PlayerHandbook {
 
             String name = adventurerClass.getElementsByTagName("name").item(0).getTextContent();
             artificer.setName(name);
-            print(name);
 
             Integer hitDie = Integer.parseInt(
                     adventurerClass.getElementsByTagName("hd").item(0).getTextContent());
