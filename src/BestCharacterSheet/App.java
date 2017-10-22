@@ -37,7 +37,7 @@ public class App extends Application {
 
         controller.initModel(darby);
 
-        primaryStage.setTitle("Best Character Sheets");
+        primaryStage.setTitle("Best Character Sheet");
         primaryStage.setScene(UI.getScene());
         primaryStage.show();
     }

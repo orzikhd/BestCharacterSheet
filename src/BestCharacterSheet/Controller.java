@@ -6,6 +6,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.w3c.dom.NodeList;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Contains functions (read event handlers) to
@@ -31,12 +35,12 @@ public class Controller {
         // create UI
         userInterface = new UserInterface();
 
-        Button btn = (Button)id("mainbtn");
+        Button btn = (Button)getByClass("mainbtn");
         EventHandler<ActionEvent> handler = new TestEventHandler();
         btn.setOnAction(handler);
 
         // test dmg button
-        btn = (Button)id("testDmgBtn");
+        btn = (Button)getByClass("DamageButton");
         handler = new DamageEventHandler();
         btn.setOnAction(handler);
 
@@ -62,14 +66,15 @@ public class Controller {
      */
     private void updateUI(){
         // Test
-        System.out.println("Updating test");
-        ((Label)id("testName")).setText(adventurer.getName());
-        ((Label)id("testClass")).setText(adventurer.getAdventurerClass().getName());
-        ((Label)id("testDie")).setText(Integer.toString(adventurer.getAdventurerClass().getHitDie()));
-        Integer.toString(adventurer.getMaxHealth());
-        Integer.toString(adventurer.getCurrHealth());
-        ((Label)id("testMaxHealth")).setText(Integer.toString(adventurer.getMaxHealth()));
-        ((Label)id("testCurrHealth")).setText(Integer.toString(adventurer.getCurrHealth()));
+        System.out.println("Updating test and summary");
+        System.out.println(getAll("AdventurerName"));
+
+
+        ((Label)getByClass("AdventurerName")).setText(adventurer.getName());
+        ((Label)getByClass("ClassName")).setText(adventurer.getAdventurerClass().getName());
+        ((Label)getByClass("HitDie")).setText(Integer.toString(adventurer.getAdventurerClass().getHitDie()));
+        ((Label)getByClass("MaxHealthText")).setText(Integer.toString(adventurer.getMaxHealth()));
+        ((Label)getByClass("CurrHealthText")).setText(Integer.toString(adventurer.getCurrHealth()));
 
         // ((Label)id("testHealth")).setText(Integer.toString(adventurer.().getHitDie()));
     }
@@ -77,16 +82,50 @@ public class Controller {
     private Node id(String id) {
         try {
             Scene scene = userInterface.getScene();
-            if (scene == null) {
-                throw new Exception("id: The node returned is null!");
+            Node node = scene.lookup("#" + id);
+            if (node == null) {
+                throw new Exception();
             }
-            return scene.lookup("#" + id);
+            return node;
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("COULD NOT GET NODE: " + id);
             return null;
         }
     }
 
+    /**
+     * Gets a node by the styleClass argument
+     */
+    private Node getByClass(String styleClass) {
+        try {
+            Scene scene = userInterface.getScene();
+            Node node = scene.lookup("." + styleClass);
+            if (node == null) {
+                throw new Exception();
+            }
+            return node;
+        } catch(Exception e) {
+            System.out.println("COULD NOT GET NODE: " + styleClass);
+            return null;
+        }
+    }
+
+    /**
+     * Gets all nodes by the styleClass argument
+     */
+    private Set<Node> getAll(String styleClass) {
+        try {
+            Scene scene = userInterface.getScene();
+            Set<Node> nodeSet = scene.lookup(".root").lookupAll("." + styleClass);
+            if (nodeSet == null) {
+                throw new Exception();
+            }
+            return nodeSet;
+        } catch(Exception e) {
+            System.out.println("COULD NOT GET NODE: " + styleClass);
+            return null;
+        }
+    }
     /**
      * Writes the current adventurer to file
      */
@@ -133,7 +172,9 @@ public class Controller {
          */
         @Override
         public void handle(ActionEvent e) {
-            adventurer.setCurrHealth(adventurer.getCurrHealth() -1);
+            if(adventurer.getCurrHealth() > 0) {
+                adventurer.setCurrHealth(adventurer.getCurrHealth() -1);
+            }
             writeToFile();
             updateUI();
         }

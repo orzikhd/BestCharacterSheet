@@ -12,29 +12,35 @@ public class AdventurerLoader {
     }
 
     public Adventurer loadAdventurer(String adventurerName, PlayerHandbook playerHandbook) throws Exception {
-        Adventurer res = new Adventurer();
 
-        Document doc = DataReader.readData("src/adventurers/" + adventurerName + ".xml");
+        try {
+            Adventurer res = new Adventurer();
 
-        Element adventurerElement = (Element) doc.getElementsByTagName("adventurer").item(0);
+            Document doc = DataReader.readData("src/adventurers/" + adventurerName + ".xml");
 
-        res.setName(getTextFromElement("name", adventurerElement));
-        res.setMaxHealth(Integer.parseInt(getTextFromElement("maxhealth", adventurerElement)));
-        res.setCurrHealth(Integer.parseInt(getTextFromElement("currhealth", adventurerElement)));
+            Element adventurerElement = (Element) doc.getElementsByTagName("adventurer").item(0);
 
-        String className = getTextFromElement("class", adventurerElement);
-        AdventurerClass adventurerClass = playerHandbook.getValidClasses().get(className);
-        res.setAdventurerClass(adventurerClass);
+            res.setName(getTextFromElement("name", adventurerElement));
+            res.setMaxHealth(Integer.parseInt(getTextFromElement("maxhealth", adventurerElement)));
+            res.setCurrHealth(Integer.parseInt(getTextFromElement("currhealth", adventurerElement)));
 
-        String abilityScoresString = getTextFromElement("abilityscores", adventurerElement);
-        String[] abilityScoreStrings = abilityScoresString.split(",");
-        List<Integer> abillityScores = new ArrayList<Integer>();
-        for (int i = 0; i < abilityScoreStrings.length; i++) {
-            abillityScores.add(Integer.parseInt(abilityScoreStrings[i].replaceAll("\\s","")));
+            String className = getTextFromElement("class", adventurerElement);
+            AdventurerClass adventurerClass = playerHandbook.getValidClasses().get(className);
+            res.setAdventurerClass(adventurerClass);
+
+            String abilityScoresString = getTextFromElement("abilityscores", adventurerElement);
+            String[] abilityScoreStrings = abilityScoresString.split(",");
+            List<Integer> abillityScores = new ArrayList<Integer>();
+            for (int i = 0; i < abilityScoreStrings.length; i++) {
+                abillityScores.add(Integer.parseInt(abilityScoreStrings[i].replaceAll("\\s", "")));
+            }
+            res.setAbilityScores(abillityScores);
+
+            return res;
+        } catch (Exception e) {
+            System.out.println("ERROR WHEN LOADING FILE");
         }
-        res.setAbilityScores(abillityScores);
-
-        return res;
+        return null;
     }
 
     private String getTextFromElement(String tag, Element root) {

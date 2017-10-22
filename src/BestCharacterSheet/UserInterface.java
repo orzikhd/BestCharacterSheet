@@ -6,6 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.shape.*;
+
 
 /**
  * The GUI for the character sheet.
@@ -13,6 +16,9 @@ import javafx.scene.layout.*;
  * Event handlers are set in the controller.
  */
 public class UserInterface {
+
+    private static int HEIGHT = 850;
+    private static int WIDTH = 1100;
 
     /**
      * The main scene for the GUI
@@ -27,7 +33,7 @@ public class UserInterface {
         StackPane root = new StackPane();
 
         Button btn = new Button();
-        btn.setId("mainbtn");
+        btn.getStyleClass().add("mainbtn");
         btn.setText("Say 'Hello World'");
 
         // The tabs that make up the main menu
@@ -40,42 +46,101 @@ public class UserInterface {
         Tab tab2 = testTab();
         tabPane.getTabs().add(tab2);
 
+        Tab tab3 = summaryTab();
+        tabPane.getTabs().add(tab3);
+
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         root.getChildren().add(tabPane);
 
-        scene = new Scene(root, 300, 250);
+        scene = new Scene(root, WIDTH, HEIGHT);
+    }
+
+    /**
+     * @return the main scene object
+     * which can be used to look up elements via ID
+     */
+    public Scene getScene() {
+        return scene;
+    }
+
+    /**
+     * Returns a bar that is proportionally filled with default color black.
+     */
+    public StackPane createBar(Integer num, Integer denom) {
+        return createBar(num,denom,javafx.scene.paint.Color.RED);
+    }
+
+    /**
+     * Returns a bar that is proportionally filled with given color.
+     */
+    public StackPane createBar(Integer num, Integer denom, Color color) {
+        StackPane barPane = new StackPane();
+        Rectangle r = new Rectangle();
+        r.setHeight(50);
+        r.setWidth(200 * num/(double)denom);
+        r.setFill(color);
+
+        Rectangle border = new Rectangle();
+        border.setHeight(50);
+        border.setWidth(200);
+        border.setStroke(Color.BLACK);
+        border.setStrokeWidth(2);
+        border.setFill(Color.TRANSPARENT);
+        barPane.getChildren().add(r);
+        barPane.getChildren().add(border);
+
+        return barPane;
     }
 
     /**
      * @return constructed static elements of testTab on init
      */
     private Tab testTab() {
+        System.out.println("Initializing Test Tab");
         Tab tab = new Tab("Test Tab");
+        GridPane tabGrid = new GridPane();
+
+        Label name = new Label("Hello world:");
+        tabGrid.add(name,0,0);
+
+        tab.setContent(tabGrid);
+        tab.setId("testTab");
+        return tab;
+    }
+
+    /**
+     * @return constructed static elements of testTab on init
+     */
+    private Tab summaryTab() {
+        Tab tab = new Tab("Summary Tab");
         GridPane tabGrid = new GridPane();
 
         Label nameStatic = new Label("Name:");
         Label nameDynamic = new Label("NO NAME LOADED");
-        nameDynamic.setId("testName");
+        nameDynamic.getStyleClass().add("AdventurerName");
 
         Label adventurerClassStatic = new Label("Class:");
         Label adventurerClassDynamic = new Label("NO CLASS LOADED");
-        adventurerClassDynamic.setId("testClass");
+        adventurerClassDynamic.getStyleClass().add("ClassName");
 
         Label classDieStatic = new Label("Class Die:");
         Label classDieDynamic = new Label("NO DIE LOADED:");
-        classDieDynamic.setId("testDie");
+        classDieDynamic.getStyleClass().add("HitDie");
 
         Label maxHealthStatic = new Label("Max Health:");
         Label maxHealthDynamic = new Label("NO MAX HEALTH LOADED");
-        maxHealthDynamic.setId("testMaxHealth");
+        maxHealthDynamic.getStyleClass().add("MaxHealthText");
 
         Label currHealthStatic = new Label("Curr Health:");
         Label currHealthDynamic = new Label("NO CURR HEALTH LOADED");
-        currHealthDynamic.setId("testCurrHealth");
+        currHealthDynamic.getStyleClass().add("CurrHealthText");
+
+        StackPane healthBar = new StackPane();
+        healthBar.getStyleClass().add("HealthBar");
 
         Button dmgButton = new Button("Take 1 point damage!");
-        dmgButton.setId("testDmgBtn");
+        dmgButton.getStyleClass().add("DamageButton");
 
         tabGrid.add(nameStatic,0,0);
         tabGrid.add(nameDynamic,1,0);
@@ -92,10 +157,12 @@ public class UserInterface {
         tabGrid.add(currHealthStatic, 0, 4);
         tabGrid.add(currHealthDynamic, 1, 4);
 
-        tabGrid.add(dmgButton, 0, 5);
+        tabGrid.add(healthBar,0,5);
+
+        tabGrid.add(dmgButton, 0, 6);
 
         tab.setContent(tabGrid);
-        tab.setId("testTab");
+        tab.setId("summaryTab");
         return tab;
     }
 
@@ -123,12 +190,11 @@ public class UserInterface {
         return new Tab("");
     }
 
-    /**
-     * @return the main scene object
-     * which can be used to look up elements via ID
-     */
-    public Scene getScene() {
-        return scene;
-    }
+
+
+
+
+
+
 
 }
