@@ -27,9 +27,10 @@ public class PlayerHandbook {
         this.Classes = new HashMap<String, AdventurerClass>();
 
         populateClasses();
-        populateRaces();
 
         // build race dictionary
+        populateRaces();
+
 
         // build background dictionary
 

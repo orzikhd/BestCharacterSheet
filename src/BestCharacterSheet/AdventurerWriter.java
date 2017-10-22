@@ -11,32 +11,37 @@ public class AdventurerWriter {
 
     }
 
-    public void writeAdventurer(Adventurer adventurer) throws Exception{
-        DocumentBuilderFactory documentBuilderFactory =
-                DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder =
-                documentBuilderFactory.newDocumentBuilder();
+    public void writeAdventurer(Adventurer adventurer) {
 
-        Document doc = documentBuilder.newDocument();
-        Element rootElement = doc.createElement("adventurer");
-        doc.appendChild(rootElement);
+        try {
+            DocumentBuilderFactory documentBuilderFactory =
+                    DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder =
+                    documentBuilderFactory.newDocumentBuilder();
 
-        addElementToRoot("name", adventurer.getName(),
-                rootElement, doc);
-        addElementToRoot("class", adventurer.getAdventurerClass().getName(),
-                rootElement, doc);
-        addElementToRoot("maxhealth", adventurer.getMaxHealth().toString(),
-                rootElement, doc);
-        addElementToRoot("currhealth", adventurer.getCurrHealth().toString(),
-                rootElement, doc);
+            Document doc = documentBuilder.newDocument();
+            Element rootElement = doc.createElement("adventurer");
+            doc.appendChild(rootElement);
 
-        // remove brackets
-        String abilityScoresString = adventurer.getAbilityScores().toString().substring(1);
-        abilityScoresString = abilityScoresString.substring(0, abilityScoresString.length() - 1);
-        addElementToRoot("abilityscores", abilityScoresString,
-                rootElement, doc);
+            addElementToRoot("name", adventurer.getName(),
+                    rootElement, doc);
+            addElementToRoot("class", adventurer.getAdventurerClass().getName(),
+                    rootElement, doc);
+            addElementToRoot("maxhealth", adventurer.getMaxHealth().toString(),
+                    rootElement, doc);
+            addElementToRoot("currhealth", adventurer.getCurrHealth().toString(),
+                    rootElement, doc);
 
-        DataWriter.writeData("src/adventurers/" + adventurer.getName() + ".xml", doc);
+            // remove brackets
+            String abilityScoresString = adventurer.getAbilityScores().toString().substring(1);
+            abilityScoresString = abilityScoresString.substring(0, abilityScoresString.length() - 1);
+            addElementToRoot("abilityscores", abilityScoresString,
+                    rootElement, doc);
+
+            DataWriter.writeData("src/adventurers/" + adventurer.getName() + ".xml", doc);
+        } catch(Exception e) {
+            System.out.println("ERROR WRITING TO FILE");
+        }
     }
 
     private void addElementToRoot(String tag, String content, Element root, Document doc) {

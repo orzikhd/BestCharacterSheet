@@ -75,4 +75,5 @@ public class Adventurer {
     public void setAdventurerClass(AdventurerClass adventurerClass) {
         this.adventurerClass = adventurerClass;
     }
+
 }
