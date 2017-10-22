@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <adventurer>
-	<name>Darby Breyha</name>
-	<level>1</level>
-	<class>Artificer</class>
-	<subclass></subclass>
-	<background>Acolyte</background>
-	<maxhealth>12</maxhealth>
-	<currhealth>6</currhealth>
-	<abilityscores>10, 12, 1, 20, 15, 5</abilityscores>
-	<skillproficiencies>Persuasion, Deception</skillproficiencies>
+    <name>Darby Breyha</name>
+    <class>Artificer</class>
+    <maxhealth>12</maxhealth>
+    <currhealth>4</currhealth>
+    <level>1</level>
+    <abilityscores>10, 12, 1, 20, 15, 5</abilityscores>
+    <skillproficiencies>Deception, Persuasion</skillproficiencies>
 </adventurer>
