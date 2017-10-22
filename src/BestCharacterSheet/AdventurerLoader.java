@@ -10,11 +10,15 @@ public class AdventurerLoader {
 
     }
 
-    public Adventurer loadAdventurer(String adventurerName, PlayerHandbook playerHandbook) throws Exception {
+    public Adventurer loadAdventurer(String adventurerName, PlayerHandbook playerHandbook) {
         Adventurer res = new Adventurer();
 
-        Document doc = DataReader.readData("src/adventurers/" + adventurerName + ".xml");
-
+        Document doc = null;
+        try {
+            doc = DataReader.readData("src/adventurers/" + adventurerName + ".xml");
+        } catch (Exception e) {
+            System.out.println("ERROR READING FROM FILE");
+        }
         Element adventurerElement = (Element) doc.getElementsByTagName("adventurer").item(0);
 
         res.setName(getTextFromElement("name", adventurerElement));
