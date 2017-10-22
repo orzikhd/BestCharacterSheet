@@ -22,6 +22,7 @@ public class App extends Application {
         AdventurerLoader adventurerLoader = new AdventurerLoader();
         Adventurer darby = adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
         System.out.println(darby.getName());
+        System.out.println(darby.getAbilityModifiers());
 
         Adventurer lars = new Adventurer();
         lars.setName("Lars clamberlot");

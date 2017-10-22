@@ -3,6 +3,9 @@ package BestCharacterSheet;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdventurerLoader {
     public AdventurerLoader() {
 
@@ -23,13 +26,13 @@ public class AdventurerLoader {
         AdventurerClass adventurerClass = playerHandbook.getValidClasses().get(className);
         res.setAdventurerClass(adventurerClass);
 
-        /*
-        String abilityScoresString = getTextFromElement("abilityscores")
-        String[] savingThrowProficiencies = rawProficiencies.split(",");
-        for (int x = 0; x < savingThrowProficiencies.length; x++) {
-            savingThrowProficiencies[x] = savingThrowProficiencies[x].replaceAll("\\s","");
+        String abilityScoresString = getTextFromElement("abilityscores", adventurerElement);
+        String[] abilityScoreStrings = abilityScoresString.split(",");
+        List<Integer> abillityScores = new ArrayList<Integer>();
+        for (int i = 0; i < abilityScoreStrings.length; i++) {
+            abillityScores.add(Integer.parseInt(abilityScoreStrings[i].replaceAll("\\s","")));
         }
-        */
+        res.setAbilityScores(abillityScores);
 
         return res;
     }
