@@ -8,12 +8,24 @@ public class Adventurer {
 
     // Name of the Adventurer
     private String name;
+    private AdventurerClass adventurerClass;
 
     public Adventurer() {
-        name = "Dabby Breyha";
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public AdventurerClass getAdventurerClass() {
+        return adventurerClass;
+    }
+
+    public void setAdventurerClass(AdventurerClass adventurerClass) {
+        this.adventurerClass = adventurerClass;
     }
 }

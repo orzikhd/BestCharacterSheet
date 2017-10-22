@@ -5,7 +5,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlayerHandbook {
     public static final String CLASS_LOCATION = "src/data/Classes.xml";
@@ -20,10 +22,10 @@ public class PlayerHandbook {
 
     private boolean dev_mode = false;
 
-    private List<AdventurerClass> validClasses;
+    private Map<String, AdventurerClass> validClasses;
 
     public PlayerHandbook() throws Exception {
-        this.validClasses = new ArrayList<AdventurerClass>();
+        this.validClasses = new HashMap<String, AdventurerClass>();
         // build class dictionary
         Document classDoc = DataReader.readData(CLASS_LOCATION);
 
@@ -105,7 +107,7 @@ public class PlayerHandbook {
                 print(classFeatures.toString());
             }
 
-            this.validClasses.add(artificer);
+            this.validClasses.put(name, artificer);
 
             break; // only doing Artificer right now
         }
@@ -119,7 +121,7 @@ public class PlayerHandbook {
         // build item dictionary
     }
 
-    public List<AdventurerClass> getValidClasses() {
+    public Map<String, AdventurerClass> getValidClasses() {
         return this.validClasses;
     }
 

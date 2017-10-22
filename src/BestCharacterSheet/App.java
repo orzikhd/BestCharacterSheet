@@ -18,7 +18,8 @@ public class App extends Application {
         controller.initModel(new Adventurer());
 
         PlayerHandbook playerHandbook = new PlayerHandbook();
-        playerHandbook.getValidClasses();
+        AdventurerLoader adventurerLoader = new AdventurerLoader();
+        adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
 
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(UI.getScene());
