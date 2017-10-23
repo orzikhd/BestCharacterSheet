@@ -6,6 +6,8 @@ import org.w3c.dom.NodeList;
 
 import java.util.*;
 
+import static BestCharacterSheet.Util.print;
+
 public class PlayerHandbook {
     public static final String CLASS_LOCATION = "src/data/Classes.xml";
 
@@ -17,13 +19,11 @@ public class PlayerHandbook {
 
     public static final String MUNDANE_ITEMS_LOCATION = "src/data/Mundane Items.xml";
 
-    private boolean dev_mode = false;
-
     private HashMap<String,AdventurerClass> Classes;
     private HashMap<String,Race> Races;
 
     public PlayerHandbook() throws Exception {
-        this.Races = new HashMap<String, Race>();;
+        this.Races = new HashMap<String, Race>();
         this.Classes = new HashMap<String, AdventurerClass>();
 
         populateClasses();
@@ -198,11 +198,5 @@ public class PlayerHandbook {
         }
 
         return res;
-    }
-
-    private void print(String toPrint) {
-        if (dev_mode) {
-            System.out.println(toPrint);
-        }
     }
 }
