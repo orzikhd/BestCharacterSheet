@@ -26,11 +26,11 @@ public class PlayerHandbook {
         this.Races = new HashMap<String, Race>();;
         this.Classes = new HashMap<String, AdventurerClass>();
 
+        // build classes dictionary
         populateClasses();
 
         // build race dictionary
         populateRaces();
-
 
         // build background dictionary
 
@@ -40,7 +40,6 @@ public class PlayerHandbook {
     }
 
     public void populateRaces() throws Exception {
-        // build race dictionary
         Document raceDoc = DataReader.readData(RACE_LOCATION);
 
         NodeList races = raceDoc.getElementsByTagName("class");
@@ -98,8 +97,6 @@ public class PlayerHandbook {
     }
 
     public void populateClasses() throws Exception {
-
-        // build class dictionary
         Document classDoc = DataReader.readData(CLASS_LOCATION);
 
         NodeList classes = classDoc.getElementsByTagName("class");
@@ -159,7 +156,7 @@ public class PlayerHandbook {
 
             autoLevelCounter++;
 
-            List<List<AdventurerClass.ClassFeature>> featuresByLevel =
+            List<List<AdventurerClass.ClassFeature>> featuresPerLevel =
                     new ArrayList<List<AdventurerClass.ClassFeature>>();
             for (; autoLevelCounter <autoLevels.getLength(); autoLevelCounter++) {
                 autoLevel = (Element) autoLevels.item(autoLevelCounter);
@@ -178,6 +175,7 @@ public class PlayerHandbook {
                 }
                 print(classFeatures.toString());
             }
+            artificer.setFeaturesPerLevel(featuresPerLevel);
 
             this.Classes.put(name, artificer);
 
