@@ -30,15 +30,7 @@ public class Controller {
     private UserInterface userInterface;
     private PlayerHandbook playerHandBook;
 
-    private AdventurerLoader loader;
-    private AdventurerWriter writer;
-
-
     public Controller() {
-        // init readers and writers
-        loader = new AdventurerLoader();
-        writer = new AdventurerWriter();
-
         // create UI
         userInterface = new UserInterface();
 
@@ -178,7 +170,7 @@ public class Controller {
     private void writeToFile() {
         if(adventurer != null) {
             System.out.println("Writing " + this.adventurer.getName() + " to file!");
-            writer.writeAdventurer(this.adventurer);
+            AdventurerIO.writeAdventurer(this.adventurer);
         }
     }
 

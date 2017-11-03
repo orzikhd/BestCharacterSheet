@@ -3,7 +3,6 @@ package BestCharacterSheet;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -22,32 +21,30 @@ public class App extends Application {
 
         PlayerHandbook playerHandbook = new PlayerHandbook();
 
-        AdventurerLoader adventurerLoader = new AdventurerLoader();
-        Adventurer darby = adventurerLoader.loadAdventurer("Darby Breyha", playerHandbook);
-
-        Adventurer lars = new Adventurer();
-        lars.setName("Lars clamberlot");
-        lars.setAdventurerClass(playerHandbook.getValidClasses().get("Artificer"));
-        lars.setMaxHealth(8);
-        lars.setCurrHealth(7);
-        lars.setLevel(3);
-
-        Integer[] abilityscores = {10, 10, 10, 10, 10, 10};
-        lars.setSkillProficiencies(new HashSet<String>(Arrays.asList("Athletics", "Persuasion")));
-        lars.setAbilityScores(new ArrayList<Integer>(Arrays.asList(abilityscores)));
-        List<Item> inventory = new ArrayList<Item>();
-        inventory.add(new Item("apple"));
-        inventory.add(new Item("sword"));
-        lars.setInventory(inventory);
-
-        AdventurerWriter adventurerWriter = new AdventurerWriter();
-        adventurerWriter.writeAdventurer(lars);
-
+        Adventurer darby = AdventurerIO.loadAdventurer("Darby Breyha", playerHandbook);
         controller.initModel(darby);
 
+        Adventurer lars = new Adventurer.AdventurerBuilder()
+                .withName("Lars Clamberlot")
+                .withLevel(3)
+                .withMaxHealth(8)
+                .withAdventurerClass(playerHandbook.getValidClasses().get("Artificer"))
+                .withAbilityScores(Arrays.asList(10,10,10,10,10,10))
+                .withSkillProficiencies(new HashSet<String>(Arrays.asList("Athletics", "Persuasion")))
+                .withInventory(new ArrayList<Item>())
+                .build();
+        lars.getInventory().add(new Item("apple"));
+        lars.getInventory().add(new Item("sword"));
+        System.out.println(lars.getSkillModifiers());
+
+        AdventurerIO.writeAdventurer(lars);
         primaryStage.setTitle("Best Character Sheet");
         primaryStage.setScene(UI.getScene());
         primaryStage.show();
+
+        System.out.println(Adventurer.ABILITIES);
+        System.out.println(Adventurer.SKILLS);
+
     }
 
     public static void main(String[] args) {

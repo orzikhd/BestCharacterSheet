@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class Adventurer {
 
-    private static final String[] ABILITYLIST = new String[] {
+    private static final String[] ABILITY_LIST = new String[] {
             "Strength"
             , "Dexterity"
             , "Constitution"
@@ -16,9 +16,9 @@ public class Adventurer {
             , "Wisdom"
             , "Charisma"
     };
-    public static final List<String> ABILITIES = new ArrayList<String>(Arrays.asList(ABILITYLIST));
+    public static final List<String> ABILITIES = new ArrayList<String>(Arrays.asList(ABILITY_LIST));
 
-    private static final String[] SKILLSLIST = new String[] {
+    private static final String[] SKILLS_LIST = new String[] {
             "Acrobatics"
             , "Animal Handling"
             , "Arcana"
@@ -38,31 +38,29 @@ public class Adventurer {
             , "Stealth"
             , "Survival"
     };
+    public static final List<String> SKILLS = new ArrayList<String>(Arrays.asList(SKILLS_LIST));
 
-    public static final List<String> SKILLS = new ArrayList<String>(Arrays.asList(SKILLSLIST));
-
-    public static final Map<Integer, List<String>> ABILITYTOSKILLS;
+    public static final Map<Integer, List<String>> ABILITY_TO_SKILLS;
     static {
-        ABILITYTOSKILLS = new HashMap<Integer, List<String>>();
-        List<String> strengthSkills = new ArrayList<String>(Arrays.asList(
-                new String[] {"Athletics"}));
+        ABILITY_TO_SKILLS = new HashMap<Integer, List<String>>();
+        List<String> strSkills = new ArrayList<String>(Collections.singletonList("Athletics"));
         List<String> dexSkills = new ArrayList<String>(Arrays.asList(
-                new String[] {"Acrobatics", "Sleight of Hand", "Stealth"}));
-        List<String> constSkills = new ArrayList<String>(Arrays.asList(
-                new String[] {}));
+                "Acrobatics", "Sleight of Hand", "Stealth"));
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection") // constitution has no associated skills
+        List<String> conSkills = new ArrayList<String>();
         List<String> intSkills = new ArrayList<String>(Arrays.asList(
-                new String[] {"Arcana", "History", "Investigation", "Nature", "Religion"}));
+                "Arcana", "History", "Investigation", "Nature", "Religion"));
         List<String> wisSkills = new ArrayList<String>(Arrays.asList(
-                new String[] {"Animal Handling", "Insight", "Medicine", "Perception", "Survival"}));
+                "Animal Handling", "Insight", "Medicine", "Perception", "Survival"));
         List<String> chaSkills = new ArrayList<String>(Arrays.asList(
-                new String[] {"Deception", "Intimidation", "Performance", "Persuasion"}));
+                "Deception", "Intimidation", "Performance", "Persuasion"));
 
-        ABILITYTOSKILLS.put(1, strengthSkills);
-        ABILITYTOSKILLS.put(2, dexSkills);
-        ABILITYTOSKILLS.put(3, constSkills);
-        ABILITYTOSKILLS.put(4, intSkills);
-        ABILITYTOSKILLS.put(5, wisSkills);
-        ABILITYTOSKILLS.put(6, chaSkills);
+        ABILITY_TO_SKILLS.put(1, strSkills);
+        ABILITY_TO_SKILLS.put(2, dexSkills);
+        ABILITY_TO_SKILLS.put(3, conSkills);
+        ABILITY_TO_SKILLS.put(4, intSkills);
+        ABILITY_TO_SKILLS.put(5, wisSkills);
+        ABILITY_TO_SKILLS.put(6, chaSkills);
     }
 
     // Name of the Adventurer
@@ -93,6 +91,20 @@ public class Adventurer {
     private List<Item> inventory;
 
     public Adventurer() {   }
+
+    public Adventurer(String name, Integer level, AdventurerClass adventurerClass,
+                      Integer maxHealth, List<Integer> abilityScores,
+                      Set<String> skillProficiencies, List<Item> inventory) {
+        this.name = name;
+        this.level = level;
+        this.adventurerClass = adventurerClass;
+        this.maxHealth = maxHealth;
+        this.currHealth = maxHealth;
+        this.abilityScores = abilityScores;
+        this.skillProficiencies = skillProficiencies;
+        this.inventory = inventory;
+        this.setProficiencyBonus();
+    }
 
     public List<Item> getInventory() {
         return inventory;
@@ -133,7 +145,8 @@ public class Adventurer {
         List<Integer> abilityModifiers = this.getAbilityModifiers();
 
         for (int i = 1; i < 7; i++) {
-            List<String> skills = ABILITYTOSKILLS.get(i);
+            List<String> skills = ABILITY_TO_SKILLS.get(i);
+
             int abilityMod = abilityModifiers.get(i - 1);
             for (String skill : skills) {
                 int profMod = abilityMod;
@@ -203,4 +216,66 @@ public class Adventurer {
         this.adventurerClass = adventurerClass;
     }
 
+    /**
+     * Builds an adventurer using typical builder pattern. Supply all arguments for happy days.
+     *
+     * typical builder pattern example:
+     *         Adventurer lars = new Adventurer.AdventurerBuilder()
+     *              .withName("Lars Clamberlot")
+     *              .withLevel(3)
+     *              .withMaxHealth(8)
+     *              .withAdventurerClass(playerHandbook.getValidClasses().get("Artificer"))
+     *              .withAbilityScores(Arrays.asList(10,10,10,10,10,10))
+     *              .withSkillProficiencies(new HashSet<String>(Arrays.asList("Athletics", "Persuasion")))
+     *              .withInventory(new ArrayList<Item>())
+     *              .build();
+     */
+    public static class AdventurerBuilder {
+        private String name;
+        private Integer level;
+        private AdventurerClass adventurerClass;
+        private Integer maxHealth;
+        private List<Integer> abilityScores;
+        private Set<String> skillProficiencies;
+        private List<Item> inventory;
+
+        public AdventurerBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public AdventurerBuilder withLevel(Integer level) {
+            this.level = level;
+            return this;
+        }
+
+        public AdventurerBuilder withAdventurerClass(AdventurerClass adventurerClass) {
+            this.adventurerClass = adventurerClass;
+            return this;
+        }
+
+        public AdventurerBuilder withMaxHealth(Integer maxHealth) {
+            this.maxHealth = maxHealth;
+            return this;
+        }
+
+        public AdventurerBuilder withAbilityScores(List<Integer> abilityScores) {
+            this.abilityScores = abilityScores;
+            return this;
+        }
+
+        public AdventurerBuilder withSkillProficiencies(Set<String> skillProficiencies) {
+            this.skillProficiencies = skillProficiencies;
+            return this;
+        }
+
+        public AdventurerBuilder withInventory(List<Item> inventory) {
+            this.inventory = inventory;
+            return this;
+        }
+
+        public Adventurer build() {
+            return new Adventurer(name, level, adventurerClass, maxHealth, abilityScores, skillProficiencies, inventory);
+        }
+    }
 }
