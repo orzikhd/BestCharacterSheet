@@ -216,7 +216,20 @@ public class Adventurer {
         this.adventurerClass = adventurerClass;
     }
 
-
+    /**
+     * Builds an adventurer using typical builder pattern. Supply all arguments for happy days.
+     *
+     * typical builder pattern example:
+     *         Adventurer lars = new Adventurer.AdventurerBuilder()
+     *              .withName("Lars Clamberlot")
+     *              .withLevel(3)
+     *              .withMaxHealth(8)
+     *              .withAdventurerClass(playerHandbook.getValidClasses().get("Artificer"))
+     *              .withAbilityScores(Arrays.asList(10,10,10,10,10,10))
+     *              .withSkillProficiencies(new HashSet<String>(Arrays.asList("Athletics", "Persuasion")))
+     *              .withInventory(new ArrayList<Item>())
+     *              .build();
+     */
     public static class AdventurerBuilder {
         private String name;
         private Integer level;

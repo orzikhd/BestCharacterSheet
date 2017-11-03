@@ -9,7 +9,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.*;
 
+/**
+ * Provides functionality to read an adventurer object from xml file and to write an adventurer to xml for later use.
+ */
 public class AdventurerIO {
+    /**
+     * Writes an adventurer to file. Overwrites if an adventurer of the same name already exists.
+     * @param adventurer the adventurer to store
+     * @throws NullPointerException if something goes wrong probably
+     */
     public static void writeAdventurer(Adventurer adventurer) throws NullPointerException {
         DocumentBuilderFactory documentBuilderFactory =
                 DocumentBuilderFactory.newInstance();
@@ -60,6 +68,13 @@ public class AdventurerIO {
         }
     }
 
+    /**
+     * Loads an adventurer from file.
+     * @param adventurerName name of the adventurer, uniquely identifies the adventurer as a file
+     * @param playerHandbook player handbook to use to validate material read from file
+     * @return adventurer as read from file
+     * @throws Exception
+     */
     public static Adventurer loadAdventurer(String adventurerName, PlayerHandbook playerHandbook) throws Exception{
         Adventurer res = new Adventurer();
 
