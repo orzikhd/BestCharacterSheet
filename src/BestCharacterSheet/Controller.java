@@ -34,28 +34,25 @@ public class Controller {
         // create UI
         userInterface = new UserInterface();
 
-        /*
-        Button btn = (Button)getByClass("mainbtn");
-        EventHandler<ActionEvent> handler = new TestEventHandler();
-        btn.setOnAction(handler);
-        */
+        // Add event handlers to interactive portions of the UI
+        EventHandler<ActionEvent> handler;
+        Button btn;
 
-        // test dmg button
-        Button btn = (Button)getByClass("DamageButton");
-        EventHandler<ActionEvent> handler = new DamageEventHandler();
-        btn.setOnAction(handler);
+        // set health btn
+        //btn = (Button)id("set_health_button");
+        //handler = new SetHealthEventHandler();
+        //btn.setOnAction(handler);
 
-        // test heal button
-        btn = (Button)getByClass("HealButton");
-        handler = new HealEventHandler();
-        btn.setOnAction(handler);
+        // add inventory item btn
+        // btn = (Button)id("inventory_add");
+        // handler = new AddItemEventHandler();
+        // btn.setOnAction(handler);
+
 
     }
 
     public void initModel(Adventurer adventurer) {
         this.adventurer = adventurer;
-
-        System.out.println("got here!");
         updateUI();
 
     }
@@ -75,16 +72,13 @@ public class Controller {
         System.out.println("Updating test and summary");
         System.out.println(getAll("AdventurerName"));
 
-        ((Label)getByClass("AdventurerName")).setText(adventurer.getName());
-        ((Label)getByClass("ClassName")).setText(adventurer.getAdventurerClass().getName());
-        ((Label)getByClass("HitDie")).setText(Integer.toString(adventurer.getAdventurerClass().getHitDie()));
-        ((Label)getByClass("MaxHealthText")).setText(Integer.toString(adventurer.getMaxHealth()));
-        ((Label)getByClass("CurrHealthText")).setText(Integer.toString(adventurer.getCurrHealth()));
-        ((Label)getByClass("LevelText")).setText(Integer.toString(adventurer.getLevel()));
-
+        ((Label)id("adventurer_name")).setText(adventurer.getName());
+        ((Label)id("class_name")).setText(adventurer.getAdventurerClass().getName());
+        ((Label)id("hit_die")).setText(Integer.toString(adventurer.getAdventurerClass().getHitDie()));
+        ((Label)id("level_text")).setText(Integer.toString(adventurer.getLevel()));
 
         // init items from inventory
-        TableView table = (TableView)id("itemtable");
+        TableView table = (TableView)id("item_table");
         final ObservableList<UserInterface.ViewItem> data = table.getItems();
         data.clear();
         List<Item> inventory = adventurer.getInventory();
@@ -92,23 +86,8 @@ public class Controller {
             data.add(new UserInterface.ViewItem(item.getDescription()));
         }
 
-        Button inventoryButton = (Button)id("inventoryButton");
-        final TextField addItem = (TextField)id("inventoryAddItem");
-        inventoryButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String description = addItem.getText();
-                if (description.trim().length() >= 1) {
-                    data.add(new UserInterface.ViewItem(description));
-                    adventurer.addItem(new Item(description));
-                    writeToFile();
-                    addItem.clear();
-                }
-            }
-        });
-
         // clear healthbar
-        StackPane healthBar = ((StackPane)getByClass("HealthBar"));
+        StackPane healthBar = ((StackPane)id("health_bar"));
         while(!healthBar.getChildren().isEmpty()) {
             healthBar.getChildren().remove(0);
         }
@@ -126,7 +105,7 @@ public class Controller {
             }
             return node;
         } catch(Exception e) {
-            System.out.println("COULD NOT GET NODE: " + id);
+            System.out.println("COULD NOT FIND NODE WITH ID: " + id);
             return null;
         }
     }
@@ -160,7 +139,7 @@ public class Controller {
             }
             return nodeSet;
         } catch(Exception e) {
-            System.out.println("COULD NOT GET NODE: " + styleClass);
+            System.out.println("COULD NOT FIND NODE WITH CLASS: " + styleClass);
             return null;
         }
     }
@@ -180,11 +159,6 @@ public class Controller {
      * mark the model dirty based in a handler click
      */
     private class TestEventHandler implements EventHandler<ActionEvent> {
-
-        public TestEventHandler() {
-            // THANKS JAVA
-        }
-
         /**
          * What happens when test event handler is fired
          * @param e: The event
@@ -196,51 +170,56 @@ public class Controller {
     }
 
     /**
-     * Damage event handler that tells the controller
-     * to reduce the health of the adventurer on a click
+     * Set health event handler that tells the controller
+     * to set the health of the adventurer to the specified amount
      */
-    private class DamageEventHandler implements EventHandler<ActionEvent> {
-        public DamageEventHandler() {
-            // THANKS JAVA
-        }
-
+    private class SetHealthEventHandler implements EventHandler<ActionEvent> {
         /**
          * What happens when test event handler is fired
          * @param e: The event
          */
         @Override
         public void handle(ActionEvent e) {
-            if(adventurer.getCurrHealth() > 0) {
-                adventurer.setCurrHealth(adventurer.getCurrHealth() -1);
+            TextField setHealthField = (TextField)id("set_health_field");
+            int healthSet = Integer.parseInt(setHealthField.getText());
+
+            if(healthSet > adventurer.getMaxHealth()) {
+                adventurer.setCurrHealth(adventurer.getMaxHealth());
+            } else if (healthSet < 0) {
+                adventurer.setCurrHealth(0);
+            } else {
+                adventurer.setCurrHealth(healthSet);
             }
+
             writeToFile();
             updateUI();
         }
-
     }
-
 
     /**
      * Damage event handler that tells the controller
      * to increase the health of the adventurer on a click
      */
-    private class HealEventHandler implements EventHandler<ActionEvent> {
-        public HealEventHandler() {
-            // THANKS JAVA
-        }
-
+    private class AddItemEventHandler implements EventHandler<ActionEvent> {
         /**
          * What happens when test event handler is fired
          * @param e: The event
          */
         @Override
         public void handle(ActionEvent e) {
-            if(adventurer.getCurrHealth() < adventurer.getMaxHealth()) {
-                adventurer.setCurrHealth(adventurer.getCurrHealth() + 1);
-            }
-            writeToFile();
-            updateUI();
-        }
 
+            final TextField addItem = (TextField)id("inventory_add");
+            String description = addItem.getText();
+
+            TableView table = (TableView)id("item_table");
+            final ObservableList<UserInterface.ViewItem> data = table.getItems();
+
+            if (description.trim().length() >= 1) {
+                data.add(new UserInterface.ViewItem(description));
+                adventurer.addItem(new Item(description));
+                writeToFile();
+                addItem.clear();
+            }
+        }
     }
 }
