@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -50,7 +52,6 @@ public class UserInterface {
 
         root.getChildren().add(tabPane);
 
-
         scene = new Scene(root, WIDTH, HEIGHT);
         scene.getStylesheets().add("stylesheet.css");
     }
@@ -72,22 +73,38 @@ public class UserInterface {
 
     /**
      * Returns a bar that is proportionally filled with given color.
+     * Note if the numerator is greater than the denominator the bar
+     * will be fully filled.
      */
     public StackPane createBar(Integer num, Integer denom, Color color) {
+        final int HBHEIGHT = 50;
+        final int HBWIDTH = 200;
+        final int HBSTROKEWIDTH = 2;
+
+        if(num > denom) {
+            num = denom;
+        }
+
         StackPane barPane = new StackPane();
+
+        // outline
+        Rectangle border = new Rectangle();
+        border.setHeight(HBHEIGHT);
+        border.setWidth(HBWIDTH);
+        border.setStroke(Color.BLACK);
+        border.setStrokeWidth(HBSTROKEWIDTH);
+        border.setFill(Color.TRANSPARENT);
+
+        // filled portion
         Rectangle r = new Rectangle();
-        r.setHeight(50);
-        r.setWidth(200 * num/(double)denom);
+        r.setHeight(HBHEIGHT);
+        r.setWidth(HBWIDTH * num/(double)denom);
         r.setFill(color);
 
-        Rectangle border = new Rectangle();
-        border.setHeight(50);
-        border.setWidth(200);
-        border.setStroke(Color.BLACK);
-        border.setStrokeWidth(2);
-        border.setFill(Color.TRANSPARENT);
         barPane.getChildren().add(r);
+        barPane.setAlignment(r, Pos.TOP_LEFT);
         barPane.getChildren().add(border);
+
 
         return barPane;
     }
@@ -122,14 +139,12 @@ public class UserInterface {
         ImageView iv = new ImageView();
         iv.setImage(image);
         iv.setFitWidth(300);
-        iv.setPreserveRatio(true);
+        iv.setFitHeight(300);
         iv.setSmooth(true);
         iv.setCache(true);
 
-        FlowPane flow = new FlowPane();
-        flow.setMargin(iv,new Insets(30));
-
         GridPane tabGrid = new GridPane();
+
 
         Label nameStatic = new Label("Name:");
         Label nameDynamic = new Label("NO NAME LOADED");
@@ -147,18 +162,16 @@ public class UserInterface {
         Label levelDynamic = new Label("NO LEVEL LOADED");
         levelDynamic.setId("level_text");
 
-        HBox setHealthBox = new HBox();
-        Label setHealthStatic = new Label("Set Health:");
-        TextField setHealthField = new TextField();
-        setHealthField.setId("set_health_field");
-        setHealthBox.getChildren().addAll(setHealthStatic, setHealthField);
-        setHealthBox.setSpacing(10);
-
         StackPane healthBar = new StackPane();
         healthBar.setId("health_bar");
 
-        Button setHealthButton = new Button("Set Health!");
-        setHealthButton.setId("set_health_button");
+        Label currentHealthStatic = new Label("Current HP: ");
+        TextField currentHealthDynamic = new TextField("NO HP LOADED");
+        currentHealthDynamic.setId("current_health_text");
+
+        Label maxHealthStatic = new Label("Max HP: ");
+        TextField maxHealthDynamic = new TextField("NO HP LOADED");
+        maxHealthDynamic.setId("max_health_text");
 
         tabGrid.add(iv,0,0);
 
@@ -174,11 +187,19 @@ public class UserInterface {
         tabGrid.add(levelStatic, 0, 4);
         tabGrid.add(levelDynamic, 1, 4);
 
+        // Health and wellness
         tabGrid.add(healthBar,0,5);
-        tabGrid.add(setHealthBox,0,6);
-        tabGrid.add(setHealthButton,0,7);
+        tabGrid.add(currentHealthStatic,0,6);
+        tabGrid.add(currentHealthDynamic,1,6);
+        tabGrid.add(maxHealthStatic,0,7);
+        tabGrid.add(maxHealthDynamic,1,7);
+
+        FlowPane flow = new FlowPane(Orientation.VERTICAL);
+        flow.setAlignment(Pos.TOP_LEFT);
 
         flow.getChildren().addAll(iv,tabGrid);
+        flow.setMargin(iv,new Insets(30));
+        flow.setMargin(tabGrid,new Insets(30));
 
         tab.setContent(flow);
         tab.setId("summary_tab");

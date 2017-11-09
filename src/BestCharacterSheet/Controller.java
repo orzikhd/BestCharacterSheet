@@ -1,5 +1,6 @@
 package BestCharacterSheet;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,13 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Observable;
-import java.util.Set;
+import javafx.beans.value.ChangeListener;
+import java.util.*;
 
 /**
  * Contains functions (read event handlers) to
@@ -35,24 +35,37 @@ public class Controller {
         userInterface = new UserInterface();
 
         // Add event handlers to interactive portions of the UI
-        EventHandler<ActionEvent> handler;
         Button btn;
+        EventHandler<ActionEvent> handler;
+        ChangeListener<String> listener;
 
-        // set health btn
-        //btn = (Button)id("set_health_button");
-        //handler = new SetHealthEventHandler();
-        //btn.setOnAction(handler);
+        // set max health text box
+        TextField maxHealthDynamic = (TextField)id("max_health_text");
+        listener = new SetMaxHealthListener();
+        maxHealthDynamic.textProperty().addListener(listener);
+
+        // set health text box
+        TextField currHealthDynamic = (TextField)id("current_health_text");
+        listener = new SetHealthListener();
+        currHealthDynamic.textProperty().addListener(listener);
 
         // add inventory item btn
         // btn = (Button)id("inventory_add");
         // handler = new AddItemEventHandler();
         // btn.setOnAction(handler);
 
-
     }
 
     public void initModel(Adventurer adventurer) {
         this.adventurer = adventurer;
+
+        // Set initial health parameters
+        TextField maxHealthDynamic = (TextField)id("max_health_text");
+        maxHealthDynamic.setText(adventurer.getMaxHealth().toString());
+        // set health text box
+        TextField currHealthDynamic = (TextField)id("current_health_text");
+        currHealthDynamic.setText(adventurer.getCurrHealth().toString());
+
         updateUI();
 
     }
@@ -68,9 +81,6 @@ public class Controller {
      * Updates the test tab with new information
      */
     private void updateUI(){
-        // Test
-        System.out.println("Updating test and summary");
-        System.out.println(getAll("AdventurerName"));
 
         ((Label)id("adventurer_name")).setText(adventurer.getName());
         ((Label)id("class_name")).setText(adventurer.getAdventurerClass().getName());
@@ -153,7 +163,7 @@ public class Controller {
         }
     }
 
-    // EVENT HANDLERS
+    // EVENT HANDLERS / LISTENERS
     /**
      * Test event handler that tells the controller to
      * mark the model dirty based in a handler click
@@ -166,33 +176,6 @@ public class Controller {
         @Override
         public void handle(ActionEvent e) {
             System.out.println("Hello world!");
-        }
-    }
-
-    /**
-     * Set health event handler that tells the controller
-     * to set the health of the adventurer to the specified amount
-     */
-    private class SetHealthEventHandler implements EventHandler<ActionEvent> {
-        /**
-         * What happens when test event handler is fired
-         * @param e: The event
-         */
-        @Override
-        public void handle(ActionEvent e) {
-            TextField setHealthField = (TextField)id("set_health_field");
-            int healthSet = Integer.parseInt(setHealthField.getText());
-
-            if(healthSet > adventurer.getMaxHealth()) {
-                adventurer.setCurrHealth(adventurer.getMaxHealth());
-            } else if (healthSet < 0) {
-                adventurer.setCurrHealth(0);
-            } else {
-                adventurer.setCurrHealth(healthSet);
-            }
-
-            writeToFile();
-            updateUI();
         }
     }
 
@@ -219,6 +202,84 @@ public class Controller {
                 adventurer.addItem(new Item(description));
                 writeToFile();
                 addItem.clear();
+            }
+        }
+    }
+
+    /**
+     * Set max health event handler that tells the controller
+     * to set the health of the adventurer to the specified amount
+     */
+    private class SetMaxHealthListener implements ChangeListener<String> {
+
+        @Override
+        public void changed(ObservableValue<? extends String> observable,
+                            String oldValue, String newValue) {
+
+            TextField setHealthField = (TextField) id("max_health_text");
+            if(newValue == null || newValue.equals("")) {
+                return;
+            }
+
+            if(newValue.length() > 8 ) {
+                setHealthField.setText(oldValue);
+            }
+
+            // Make sure the value in the health field is an integer
+            // and within range of integers
+            if (!newValue.matches("\\d*")) {
+                setHealthField.setText(newValue.replaceAll("[^\\d]", ""));
+            } else {
+                int healthSet = Integer.parseInt(setHealthField.getText());
+
+                if (healthSet < 1) {
+                    adventurer.setMaxHealth(1);
+                } else {
+                    adventurer.setMaxHealth(healthSet);
+                }
+
+                writeToFile();
+                updateUI();
+            }
+        }
+    }
+
+     /**
+     * Set health event handler that tells the controller
+     * to set the health of the adventurer to the specified amount
+     */
+    private class SetHealthListener implements ChangeListener<String> {
+
+        @Override
+        public void changed(ObservableValue<? extends String> observable,
+                           String oldValue, String newValue) {
+
+            TextField setHealthField = (TextField)id("current_health_text");
+
+            if(newValue == null || newValue.equals("")) {
+                return;
+            }
+
+            if(newValue.length() > 8 ) {
+                setHealthField.setText(oldValue);
+                return;
+            }
+
+            // Make sure the value in the health field is an integer
+            if (!newValue.matches("\\d*")) {
+                setHealthField.setText(newValue.replaceAll("[^\\d]", ""));
+            } else {
+                int healthSet = Integer.parseInt(setHealthField.getText());
+
+                if(healthSet > adventurer.getMaxHealth()) {
+                    adventurer.setCurrHealth(adventurer.getMaxHealth());
+                } else if (healthSet < 0) {
+                    adventurer.setCurrHealth(0);
+                } else {
+                    adventurer.setCurrHealth(healthSet);
+                }
+                writeToFile();
+                updateUI();
             }
         }
     }

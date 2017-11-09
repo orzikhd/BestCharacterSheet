@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<adventurer>
+    <name>Lars Clamberlot</name>
+    <class>Artificer</class>
+    <maxhealth>8</maxhealth>
+    <currhealth>8</currhealth>
+    <level>3</level>
+    <abilityscores>10, 10, 10, 10, 10, 10</abilityscores>
+    <skillproficiencies>Athletics, Persuasion</skillproficiencies>
+    <inventory>
+        <item>apple</item>
+        <item>sword</item>
+    </inventory>
+</adventurer>
