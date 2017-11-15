@@ -6,8 +6,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
-
 
 /**
  * Main application object that kicks everything off

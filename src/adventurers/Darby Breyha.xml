@@ -2,8 +2,8 @@
 <adventurer>
     <name>Darby Breyha</name>
     <class>Artificer</class>
-    <maxhealth>12</maxhealth>
-    <currhealth>12</currhealth>
+    <maxhealth>100</maxhealth>
+    <currhealth>22</currhealth>
     <level>1</level>
     <abilityscores>10, 12, 1, 20, 15, 5</abilityscores>
     <skillproficiencies>Charisma, Stealth</skillproficiencies>
@@ -20,5 +20,8 @@
         <item>A potion of strength</item>
         <item>Apple</item>
         <item>Hello</item>
+        <item>Arrow </item>
+        <item>addd</item>
+        <item>qdd</item>
     </inventory>
 </adventurer>

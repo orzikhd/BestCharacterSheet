@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,23 +36,8 @@ public class UserInterface {
 
         StackPane root = new StackPane();
 
-        /*
-        Button btn = new Button();
-        btn.getStyleClass().add("mainbtn");
-        btn.setText("Say 'Hello World'");
-        */
         // The tabs that make up the main menu
         TabPane tabPane = new TabPane();
-
-        /*
-        Tab tab1 = new Tab();
-        tab1.setText("new tab1");
-        tabPane.getTabs().add(tab1);
-        tab1.setContent(btn);
-
-        Tab tab2 = testTab();
-        tabPane.getTabs().add(tab2);
-        */
 
         Tab tab3 = summaryTab();
         tabPane.getTabs().add(tab3);
@@ -64,7 +51,6 @@ public class UserInterface {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         root.getChildren().add(tabPane);
-
 
         scene = new Scene(root, WIDTH, HEIGHT);
         scene.getStylesheets().add("stylesheet.css");
@@ -87,22 +73,38 @@ public class UserInterface {
 
     /**
      * Returns a bar that is proportionally filled with given color.
+     * Note if the numerator is greater than the denominator the bar
+     * will be fully filled.
      */
     public StackPane createBar(Integer num, Integer denom, Color color) {
+        final int HBHEIGHT = 50;
+        final int HBWIDTH = 200;
+        final int HBSTROKEWIDTH = 2;
+
+        if(num > denom) {
+            num = denom;
+        }
+
         StackPane barPane = new StackPane();
+
+        // outline
+        Rectangle border = new Rectangle();
+        border.setHeight(HBHEIGHT);
+        border.setWidth(HBWIDTH);
+        border.setStroke(Color.BLACK);
+        border.setStrokeWidth(HBSTROKEWIDTH);
+        border.setFill(Color.TRANSPARENT);
+
+        // filled portion
         Rectangle r = new Rectangle();
-        r.setHeight(50);
-        r.setWidth(200 * num/(double)denom);
+        r.setHeight(HBHEIGHT);
+        r.setWidth(HBWIDTH * num/(double)denom);
         r.setFill(color);
 
-        Rectangle border = new Rectangle();
-        border.setHeight(50);
-        border.setWidth(200);
-        border.setStroke(Color.BLACK);
-        border.setStrokeWidth(2);
-        border.setFill(Color.TRANSPARENT);
         barPane.getChildren().add(r);
+        barPane.setAlignment(r, Pos.TOP_LEFT);
         barPane.getChildren().add(border);
+
 
         return barPane;
     }
@@ -118,7 +120,7 @@ public class UserInterface {
         tabGrid.add(name,0,0);
 
         tab.setContent(tabGrid);
-        tab.setId("testTab");
+        tab.setId("test_tab");
         return tab;
     }
 
@@ -137,49 +139,39 @@ public class UserInterface {
         ImageView iv = new ImageView();
         iv.setImage(image);
         iv.setFitWidth(300);
-        iv.setPreserveRatio(true);
+        iv.setFitHeight(300);
         iv.setSmooth(true);
         iv.setCache(true);
-
-
-        FlowPane flow = new FlowPane();
-        flow.setMargin(iv,new Insets(30));
 
         GridPane tabGrid = new GridPane();
 
 
         Label nameStatic = new Label("Name:");
         Label nameDynamic = new Label("NO NAME LOADED");
-        nameDynamic.getStyleClass().add("AdventurerName");
+        nameDynamic.setId("adventurer_name");
 
         Label adventurerClassStatic = new Label("Class:");
         Label adventurerClassDynamic = new Label("NO CLASS LOADED");
-        adventurerClassDynamic.getStyleClass().add("ClassName");
+        adventurerClassDynamic.setId("class_name");
 
         Label classDieStatic = new Label("Class Die:");
         Label classDieDynamic = new Label("NO DIE LOADED:");
-        classDieDynamic.getStyleClass().add("HitDie");
+        classDieDynamic.setId("hit_die");
 
-        Label maxHealthStatic = new Label("Max Health:");
-        Label maxHealthDynamic = new Label("NO MAX HEALTH LOADED");
-        maxHealthDynamic.getStyleClass().add("MaxHealthText");
-
-        Label currHealthStatic = new Label("Current Health:");
-        Label currHealthDynamic = new Label("NO CURR HEALTH LOADED");
-        currHealthDynamic.getStyleClass().add("CurrHealthText");
-
-        Label levelStatic = new Label("Level:");
+        Label levelStatic = new Label("Level: ");
         Label levelDynamic = new Label("NO LEVEL LOADED");
-        levelDynamic.getStyleClass().add("LevelText");
+        levelDynamic.setId("level_text");
 
         StackPane healthBar = new StackPane();
-        healthBar.getStyleClass().add("HealthBar");
+        healthBar.setId("health_bar");
 
-        Button dmgButton = new Button("Take 1 point of damage!");
-        dmgButton.getStyleClass().add("DamageButton");
+        Label currentHealthStatic = new Label("Current HP: ");
+        TextField currentHealthDynamic = new TextField("NO HP LOADED");
+        currentHealthDynamic.setId("current_health_text");
 
-        Button healButton = new Button("Heal 1 point of damage!");
-        healButton.getStyleClass().add("HealButton");
+        Label maxHealthStatic = new Label("Max HP: ");
+        TextField maxHealthDynamic = new TextField("NO HP LOADED");
+        maxHealthDynamic.setId("max_health_text");
 
         tabGrid.add(iv,0,0);
 
@@ -192,25 +184,25 @@ public class UserInterface {
         tabGrid.add(classDieStatic,0,3);
         tabGrid.add(classDieDynamic,1,3);
 
-        tabGrid.add(maxHealthStatic, 0, 4);
-        tabGrid.add(maxHealthDynamic, 1, 4);
+        tabGrid.add(levelStatic, 0, 4);
+        tabGrid.add(levelDynamic, 1, 4);
 
-        tabGrid.add(currHealthStatic, 0, 5);
-        tabGrid.add(currHealthDynamic, 1, 5);
+        // Health and wellness
+        tabGrid.add(healthBar,0,5);
+        tabGrid.add(currentHealthStatic,0,6);
+        tabGrid.add(currentHealthDynamic,1,6);
+        tabGrid.add(maxHealthStatic,0,7);
+        tabGrid.add(maxHealthDynamic,1,7);
 
-        tabGrid.add(levelStatic, 0, 6);
-        tabGrid.add(levelDynamic, 1, 6);
-
-        tabGrid.add(healthBar,0,7);
-
-        tabGrid.add(dmgButton, 0, 8);
-
-        tabGrid.add(healButton, 0, 9);
+        FlowPane flow = new FlowPane(Orientation.VERTICAL);
+        flow.setAlignment(Pos.TOP_LEFT);
 
         flow.getChildren().addAll(iv,tabGrid);
+        flow.setMargin(iv,new Insets(30));
+        flow.setMargin(tabGrid,new Insets(30));
 
         tab.setContent(flow);
-        tab.setId("summaryTab");
+        tab.setId("summary_tab");
         return tab;
     }
 
@@ -245,17 +237,17 @@ public class UserInterface {
         */
 
         table.setItems(data);
-        table.setId("itemtable");
+        table.setId("item_table");
         table.getColumns().addAll(itemColumn);
 
         // ability to add a row
         final TextField addItem = new TextField();
-        addItem.setId("inventoryAddItem");
+        addItem.setId("inventory_add");
         addItem.setPromptText("Add an item");
         addItem.setMaxWidth(300);
 
         final Button addButton = new Button("Add");
-        addButton.setId("inventoryButton");
+        addButton.setId("inventory_button");
 
         final HBox hb = new HBox();
         hb.getChildren().addAll(addItem, addButton);
@@ -291,7 +283,7 @@ public class UserInterface {
 
         TextArea textField = new TextArea();
         HBox hb = new HBox();
-        hb.setId("NotesField");
+        hb.setId("notes_field");
         hb.setSpacing(10);
         hb.setPrefSize(300,300);
 
@@ -318,10 +310,4 @@ public class UserInterface {
             this.description.set(description);
         }
     }
-
-
-
-
-
-
 }
