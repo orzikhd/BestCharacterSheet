@@ -108,6 +108,7 @@ public class PlayerHandbook {
             String name = adventurerClass.getElementsByTagName("name").item(0).getTextContent();
             artificer.setName(name);
 
+
             Integer hitDie = Integer.parseInt(
                     adventurerClass.getElementsByTagName("hd").item(0).getTextContent());
             artificer.setHitDie(hitDie);
