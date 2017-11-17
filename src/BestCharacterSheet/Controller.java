@@ -6,10 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 
 import org.w3c.dom.NodeList;
@@ -54,6 +51,11 @@ public class Controller {
         handler = new AddItemEventHandler();
         btn.setOnAction(handler);
 
+        // save notes btn
+        btn = (Button)id("notes_button");
+        handler = new SaveNotesEventHandler();
+        btn.setOnAction(handler);
+
     }
 
     public void initModel(Adventurer adventurer) {
@@ -65,6 +67,9 @@ public class Controller {
         // set health text box
         TextField currHealthDynamic = (TextField)id("current_health_text");
         currHealthDynamic.setText(adventurer.getCurrHealth().toString());
+        // set notes text box
+        TextArea notesText = (TextArea)id("notes_text");
+        notesText.setText(adventurer.getNotes());
 
         updateUI();
 
@@ -158,7 +163,6 @@ public class Controller {
      */
     private void writeToFile() {
         if(adventurer != null) {
-            System.out.println("Writing " + this.adventurer.getName() + " to file!");
             AdventurerIO.writeAdventurer(this.adventurer);
         }
     }
@@ -170,7 +174,7 @@ public class Controller {
      */
     private class TestEventHandler implements EventHandler<ActionEvent> {
         /**
-         * What happens when test event handler is fired
+         * What happens when event handler is fired
          * @param e: The event
          */
         @Override
@@ -180,12 +184,11 @@ public class Controller {
     }
 
     /**
-     * Damage event handler that tells the controller
-     * to increase the health of the adventurer on a click
+     * Tells controller to add item to Adventurer's inventory
      */
     private class AddItemEventHandler implements EventHandler<ActionEvent> {
         /**
-         * What happens when test event handler is fired
+         * What happens when event handler is fired
          * @param e: The event
          */
         @Override
@@ -203,6 +206,27 @@ public class Controller {
                 writeToFile();
                 addItem.clear();
             }
+        }
+    }
+
+    /**
+     * Tells controller to save notes to adventurer
+     */
+    private class SaveNotesEventHandler implements EventHandler<ActionEvent> {
+        /**
+         * What happens when event handler is fired
+         * @param e: The event
+         */
+        @Override
+        public void handle(ActionEvent e) {
+            System.out.println("SaveNotesHandler!");
+            final TextArea notesText = (TextArea)id("notes_text");
+
+            String notes = notesText.getText();
+            adventurer.setNotes(notes);
+
+            writeToFile();
+            updateUI();
         }
     }
 

@@ -279,16 +279,17 @@ public class UserInterface {
         GridPane tabGrid = new GridPane();
         tabGrid.setMinSize(300,300);
 
-        Label notes = new Label("Notes:");
+        final Label notes = new Label("Notes:");
 
-        TextArea textField = new TextArea();
-        HBox hb = new HBox();
-        hb.setId("notes_field");
-        hb.setSpacing(10);
-        hb.setPrefSize(300,300);
+        final TextArea textField = new TextArea();
+        textField.setId("notes_text");
+
+        final Button saveNotes = new Button("Save");
+        saveNotes.setId("notes_button");
 
         tabGrid.add(notes,0,0);
         tabGrid.add(textField,0,1);
+        tabGrid.add(saveNotes,0,2);
 
         tab.setContent(tabGrid);
 

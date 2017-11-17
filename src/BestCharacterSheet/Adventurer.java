@@ -90,21 +90,29 @@ public class Adventurer {
     // Item Inventory
     private List<Item> inventory;
 
+    // Notes
+    private String notes;
+
     public Adventurer() {   }
 
     public Adventurer(String name, Integer level, AdventurerClass adventurerClass,
-                      Integer maxHealth, List<Integer> abilityScores,
-                      Set<String> skillProficiencies, List<Item> inventory) {
+                      Integer maxHealth, Integer currHealth, List<Integer> abilityScores,
+                      Set<String> skillProficiencies, List<Item> inventory, String notes) {
         this.name = name;
         this.level = level;
         this.adventurerClass = adventurerClass;
         this.maxHealth = maxHealth;
-        this.currHealth = maxHealth;
+        this.currHealth = currHealth;
         this.abilityScores = abilityScores;
         this.skillProficiencies = skillProficiencies;
         this.inventory = inventory;
+        this.notes = notes;
         this.setProficiencyBonus();
     }
+
+    public String getNotes() {return notes;}
+
+    public void setNotes(String notes) {this.notes = notes;}
 
     public List<Item> getInventory() {
         return inventory;
@@ -235,9 +243,11 @@ public class Adventurer {
         private Integer level;
         private AdventurerClass adventurerClass;
         private Integer maxHealth;
+        private Integer currHealth;
         private List<Integer> abilityScores;
         private Set<String> skillProficiencies;
         private List<Item> inventory;
+        private String notes;
 
         public AdventurerBuilder withName(String name) {
             this.name = name;
@@ -259,6 +269,11 @@ public class Adventurer {
             return this;
         }
 
+        public AdventurerBuilder withCurrHealth(Integer currHealth) {
+            this.currHealth = currHealth;
+            return this;
+        }
+
         public AdventurerBuilder withAbilityScores(List<Integer> abilityScores) {
             this.abilityScores = abilityScores;
             return this;
@@ -274,8 +289,17 @@ public class Adventurer {
             return this;
         }
 
+        public AdventurerBuilder withNotes(String notes) {
+            this.notes = notes;
+            return this;
+        }
+
         public Adventurer build() {
-            return new Adventurer(name, level, adventurerClass, maxHealth, abilityScores, skillProficiencies, inventory);
+            if(name == null || level == null || adventurerClass == null || maxHealth == null || currHealth == null ||
+                    abilityScores == null || skillProficiencies == null || inventory == null || notes == null) {
+                System.out.println("AdventurerBuilder: NOTE BUILD INCOMPLETE");
+            }
+            return new Adventurer(name, level, adventurerClass, maxHealth, currHealth, abilityScores, skillProficiencies, inventory, notes);
         }
     }
 }
