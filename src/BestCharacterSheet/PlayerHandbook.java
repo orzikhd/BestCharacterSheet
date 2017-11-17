@@ -17,14 +17,14 @@ public class PlayerHandbook {
 
     public static final String MUNDANE_ITEMS_LOCATION = "src/data/Mundane Items.xml";
 
-    private boolean dev_mode = false;
+    private static boolean dev_mode = false;
 
-    private HashMap<String,AdventurerClass> Classes;
-    private HashMap<String,Race> Races;
+    private static HashMap<String,AdventurerClass> CLASSES;
+    private static HashMap<String,Race> RACES;
 
     public PlayerHandbook() throws Exception {
-        this.Races = new HashMap<String, Race>();;
-        this.Classes = new HashMap<String, AdventurerClass>();
+        RACES = new HashMap<String, Race>();
+        CLASSES = new HashMap<String, AdventurerClass>();
 
         // build classes dictionary
         populateClasses();
@@ -92,6 +92,8 @@ public class PlayerHandbook {
             }
             aRace.setTraits(traitList);
             print(traitList.toString());
+
+            RACES.put(name, aRace);
         }
 
     }
@@ -101,64 +103,75 @@ public class PlayerHandbook {
 
         NodeList classes = classDoc.getElementsByTagName("class");
 
-        for (int i = 0; i < classes.getLength(); i++) {
-            AdventurerClass artificer = new AdventurerClass();
-            Element adventurerClass = (Element) classes.item(i);
+        for (int classIndex = 0; classIndex < classes.getLength(); classIndex++) {
+            AdventurerClass adventurerClass = new AdventurerClass();
+            Element adventurerClassElement = (Element) classes.item(classIndex);
 
-            String name = adventurerClass.getElementsByTagName("name").item(0).getTextContent();
-            artificer.setName(name);
+            String name = adventurerClassElement.getElementsByTagName("name").item(0).getTextContent();
+            adventurerClass.setName(name);
 
             Integer hitDie = Integer.parseInt(
-                    adventurerClass.getElementsByTagName("hd").item(0).getTextContent());
-            artificer.setHitDie(hitDie);
+                    adventurerClassElement.getElementsByTagName("hd").item(0).getTextContent());
+            adventurerClass.setHitDie(hitDie);
             print(hitDie.toString());
 
-            String rawProficiencies = adventurerClass.getElementsByTagName("proficiency").item(0).getTextContent();
+            String rawProficiencies = adventurerClassElement.getElementsByTagName("proficiency").item(0).getTextContent();
             print(rawProficiencies);
             String[] savingThrowProficiencies = rawProficiencies.split(",");
             for (int x = 0; x < savingThrowProficiencies.length; x++) {
                 savingThrowProficiencies[x] = savingThrowProficiencies[x].replaceAll("\\s","");
             }
-            artificer.setSavingThrowProficiencies(savingThrowProficiencies);
-            print(savingThrowProficiencies[0].toString());
-            print(savingThrowProficiencies[1].toString());
+            adventurerClass.setSavingThrowProficiencies(savingThrowProficiencies);
+            print(savingThrowProficiencies[0]);
+            print(savingThrowProficiencies[1]);
 
-            String spellAbility = adventurerClass.getElementsByTagName("spellAbility").item(0).getTextContent();
-            artificer.setSpellAbility(spellAbility);
-            print(spellAbility);
+            NodeList autoLevels = adventurerClassElement.getElementsByTagName("autolevel");
+            int autoLevelCounter = 0;
 
-            NodeList autoLevels = adventurerClass.getElementsByTagName("autolevel");
+            NodeList spellAbilityNodeList = adventurerClassElement.getElementsByTagName("spellAbility");
+            if (spellAbilityNodeList.getLength() > 0) {
+                // this class or a subclass has spell casting
+                String spellAbility = spellAbilityNodeList.item(0).getTextContent();
+                adventurerClass.setSpellAbility(spellAbility);
+                print(spellAbility);
 
-            // grab the first 20 autoLevels to make spell slot table
-            List<List<Integer>> spellSlotsPerLevel = new ArrayList<List<Integer>>();
-            int autoLevelCounter;
-            for (autoLevelCounter = 0; autoLevelCounter < 20; autoLevelCounter++) {
-                Element autoLevel = (Element) autoLevels.item(autoLevelCounter);
-                String rawSlots = autoLevel.getElementsByTagName("slots").item(0).getTextContent();
-                List<Integer> slots = new ArrayList<Integer>();
-                for (String slot : rawSlots.split(",")) {
-                    slots.add(Integer.parseInt(slot.replaceAll("\\s","")));
+
+                // grab the first 20 autoLevels to make spell slot table if spell ability existed
+                List<List<Integer>> spellSlotsPerLevel = new ArrayList<List<Integer>>();
+
+                for (; autoLevelCounter < 20; autoLevelCounter++) {
+                    Element autoLevel = (Element) autoLevels.item(autoLevelCounter);
+
+                    if (autoLevel == null || autoLevel.getElementsByTagName("slots") == null || autoLevel.getElementsByTagName("slots").item(0) == null) {
+                        System.out.println(name);
+                    }
+
+                    String rawSlots = autoLevel.getElementsByTagName("slots").item(0).getTextContent();
+                    List<Integer> slots = new ArrayList<Integer>();
+                    for (String slot : rawSlots.split(",")) {
+                        slots.add(Integer.parseInt(slot.replaceAll("\\s", "")));
+                    }
+                    spellSlotsPerLevel.add(slots);
                 }
-                spellSlotsPerLevel.add(slots);
+                adventurerClass.setSpellSlotsPerLevel(spellSlotsPerLevel);
+                print(spellSlotsPerLevel.toString());
             }
-            artificer.setSpellSlotsPerLevel(spellSlotsPerLevel);
-            print(spellSlotsPerLevel.toString());
 
             // next autolevel should be starting proficiencies and equipment
             Element autoLevel = (Element) autoLevels.item(autoLevelCounter);
             Element profs = (Element) autoLevel.getElementsByTagName("feature").item(0);
-            artificer.setStartingProficiencies(combineTextElements(profs));
+            adventurerClass.setStartingProficiencies(combineTextElements(profs));
             print(combineTextElements(profs));
 
             Element equips = (Element) autoLevel.getElementsByTagName("feature").item(1);
-            artificer.setStartingEquipment(combineTextElements(equips));
+            adventurerClass.setStartingEquipment(combineTextElements(equips));
             print(combineTextElements(equips));
 
             autoLevelCounter++;
 
             List<List<AdventurerClass.ClassFeature>> featuresPerLevel =
                     new ArrayList<List<AdventurerClass.ClassFeature>>();
-            for (; autoLevelCounter <autoLevels.getLength(); autoLevelCounter++) {
+            for (; autoLevelCounter < autoLevels.getLength(); autoLevelCounter++) {
                 autoLevel = (Element) autoLevels.item(autoLevelCounter);
                 NodeList features = autoLevel.getElementsByTagName("feature");
 
@@ -170,32 +183,35 @@ public class PlayerHandbook {
                     String featureName = featureElem.getElementsByTagName("name").item(0).getTextContent();
                     String description = combineTextElements(featureElem);
                     AdventurerClass.ClassFeature feature =
-                            artificer.new ClassFeature(featureName, description, optional);
+                            adventurerClass.new ClassFeature(featureName, description, optional);
                     classFeatures.add(feature);
                 }
-                print(classFeatures.toString());
+                featuresPerLevel.add(classFeatures);
             }
-            artificer.setFeaturesPerLevel(featuresPerLevel);
 
-            this.Classes.put(name, artificer);
+            if (featuresPerLevel.size() != 20) {
+                System.out.println(name + "; " + featuresPerLevel.size());
+                throw new IllegalStateException("there should be exactly 20 levels");
+            }
 
-            break; // only doing Artificer right now
+            adventurerClass.setFeaturesPerLevel(featuresPerLevel);
+
+            CLASSES.put(name, adventurerClass);
         }
 
     }
     public Map<String, AdventurerClass> getValidClasses() {
-        return this.Classes;
+        return CLASSES;
 
     }
 
     private String combineTextElements(Element root) {
         NodeList texts = root.getElementsByTagName("text");
-        String res = "";
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < texts.getLength(); i++) {
-            res += (texts.item(i)).getTextContent() + "\n";
+            stringBuilder.append(texts.item(i).getTextContent()).append("\n");
         }
-
-        return res;
+        return stringBuilder.toString();
     }
 
     private void print(String toPrint) {

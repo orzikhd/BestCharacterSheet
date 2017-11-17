@@ -50,7 +50,7 @@ public class Controller {
         currHealthDynamic.textProperty().addListener(listener);
 
         // add inventory item btn
-        btn = (Button)id("inventory_add");
+        btn = (Button)id("inventory_button");
         handler = new AddItemEventHandler();
         btn.setOnAction(handler);
 
