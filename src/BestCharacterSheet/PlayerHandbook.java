@@ -6,6 +6,8 @@ import org.w3c.dom.NodeList;
 
 import java.util.*;
 
+import static BestCharacterSheet.Util.print;
+
 public class PlayerHandbook {
     public static final String CLASS_LOCATION = "src/data/Classes.xml";
 
@@ -18,13 +20,12 @@ public class PlayerHandbook {
     public static final String MUNDANE_ITEMS_LOCATION = "src/data/Mundane Items.xml";
 
     private static boolean dev_mode = false;
-
-    private static HashMap<String,AdventurerClass> CLASSES;
-    private static HashMap<String,Race> RACES;
+    private HashMap<String,AdventurerClass> Classes;
+    private HashMap<String,Race> Races;
 
     public PlayerHandbook() throws Exception {
-        RACES = new HashMap<String, Race>();
-        CLASSES = new HashMap<String, AdventurerClass>();
+        this.Races = new HashMap<String, Race>();
+        this.Classes = new HashMap<String, AdventurerClass>();
 
         // build classes dictionary
         populateClasses();
@@ -213,11 +214,5 @@ public class PlayerHandbook {
             stringBuilder.append(texts.item(i).getTextContent()).append("\n");
         }
         return stringBuilder.toString();
-    }
-
-    private void print(String toPrint) {
-        if (dev_mode) {
-            System.out.println(toPrint);
-        }
     }
 }
