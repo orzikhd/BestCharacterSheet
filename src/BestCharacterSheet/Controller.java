@@ -9,11 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
-
 import javafx.beans.value.ChangeListener;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Contains functions (read event handlers) to
