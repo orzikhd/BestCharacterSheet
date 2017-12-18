@@ -32,6 +32,7 @@ cmake-build-debug/
 ## Plugin-specific files:
 
 # IntelliJ
+.idea/codeStyleSettings.xml
 out/
 
 # mpeltonen/sbt-idea plugin
