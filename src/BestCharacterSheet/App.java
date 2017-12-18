@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * Main application object that kicks everything off
@@ -18,6 +19,8 @@ public class App extends Application {
         UserInterface UI = controller.getUI();
 
         PlayerHandbook playerHandbook = new PlayerHandbook();
+        Map<String, AdventurerClass> classes = playerHandbook.getValidClasses();
+        System.out.println("all possible classes: " + classes.keySet());
 
         Adventurer darby = AdventurerIO.loadAdventurer("Darby Breyha", playerHandbook);
         controller.initModel(darby);
@@ -40,7 +43,6 @@ public class App extends Application {
         primaryStage.setTitle("Best Character Sheet");
         primaryStage.setScene(UI.getScene());
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {

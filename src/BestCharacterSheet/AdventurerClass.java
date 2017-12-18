@@ -3,13 +3,28 @@ package BestCharacterSheet;
 import java.util.List;
 
 public class AdventurerClass {
+    // name of the class
     private String name;
+
+    // hit die of the class
     private int hitDie;
+
+    // full names of ability scores this class has saving throw proficiency in
     private String[] savingThrowProficiencies;
+
+    // ability used for spell casting (if applicable)
     private String spellAbility;
+
+    // 20x10 2d array (20 levels, 10 spell levels) with # of that spell level at that level
     private List<List<Integer>> spellSlotsPerLevel;
+
+    // large text describing starting proficiencies of all sorts
     private String startingProficiencies;
+
+    // large text describing starting equipment
     private String startingEquipment;
+
+    // feature texts by level, for all 20 levels
     private List<List<ClassFeature>> featuresPerLevel;
     public AdventurerClass() {
 
