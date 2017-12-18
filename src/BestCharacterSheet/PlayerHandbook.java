@@ -98,7 +98,7 @@ public class PlayerHandbook {
             aRace.setTraits(traitList);
             print(traitList.toString());
 
-            RACES.put(name, aRace);
+            Races.put(name, aRace);
         }
 
     }
@@ -202,12 +202,12 @@ public class PlayerHandbook {
 
             adventurerClass.setFeaturesPerLevel(featuresPerLevel);
 
-            CLASSES.put(name, adventurerClass);
+            Classes.put(name, adventurerClass);
         }
 
     }
     public Map<String, AdventurerClass> getValidClasses() {
-        return CLASSES;
+        return Classes;
 
     }
 
