@@ -253,17 +253,21 @@ public class UserInterface {
         table.setId("item_table");
         table.getColumns().addAll(itemColumn);
 
-        // ability to add a row
+        // ability to add an item
         final TextField addItem = new TextField();
         addItem.setId("inventory_add");
         addItem.setPromptText("Add an item");
         addItem.setMaxWidth(300);
 
         final Button addButton = new Button("Add");
-        addButton.setId("inventory_button");
+        addButton.setId("inventory_button_add");
+
+        // ability to remove an item
+        final Button removeButton = new Button("Remove Item");
+        removeButton.setId("inventory_button_remove");
 
         final HBox hb = new HBox();
-        hb.getChildren().addAll(addItem, addButton);
+        hb.getChildren().addAll(addItem, addButton, removeButton);
         hb.setSpacing(5);
 
         final VBox vBox = new VBox();

@@ -133,6 +133,16 @@ public class Adventurer {
         this.inventory.add(item);
     }
 
+    // Removes the first occurance of an item with the given description
+    public void removeItemByDescription(String description) {
+        for(int i = 0; i < this.inventory.size(); i++) {
+            if (this.inventory.get(i).getDescription().equals(description)) {
+                this.inventory.remove(i);
+                break;
+            }
+        }
+    }
+
     public Integer getLevel() {
         return level;
     }
