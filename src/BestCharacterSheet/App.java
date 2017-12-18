@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * Main application object that kicks everything off
@@ -18,6 +19,8 @@ public class App extends Application {
         UserInterface UI = controller.getUI();
 
         PlayerHandbook playerHandbook = new PlayerHandbook();
+        Map<String, AdventurerClass> classes = playerHandbook.getValidClasses();
+        System.out.println("all possible classes: " + classes.keySet());
 
         Adventurer darby = AdventurerIO.loadAdventurer("Darby Breyha", playerHandbook);
         controller.initModel(darby);
@@ -26,23 +29,20 @@ public class App extends Application {
                 .withName("Lars Clamberlot")
                 .withLevel(3)
                 .withMaxHealth(8)
+                .withCurrHealth(8)
                 .withAdventurerClass(playerHandbook.getValidClasses().get("Artificer"))
                 .withAbilityScores(Arrays.asList(10,10,10,10,10,10))
                 .withSkillProficiencies(new HashSet<String>(Arrays.asList("Athletics", "Persuasion")))
                 .withInventory(new ArrayList<Item>())
+                .withNotes("HELLO WORLD 2")
                 .build();
         lars.getInventory().add(new Item("apple"));
         lars.getInventory().add(new Item("sword"));
-        System.out.println(lars.getSkillModifiers());
 
         AdventurerIO.writeAdventurer(lars);
         primaryStage.setTitle("Best Character Sheet");
         primaryStage.setScene(UI.getScene());
         primaryStage.show();
-
-        System.out.println(Adventurer.ABILITIES);
-        System.out.println(Adventurer.SKILLS);
-
     }
 
     public static void main(String[] args) {

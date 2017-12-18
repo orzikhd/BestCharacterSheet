@@ -7,7 +7,13 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 /**
  * Provides functionality to read an adventurer object from xml file and to write an adventurer to xml for later use.
@@ -19,8 +25,11 @@ public class AdventurerIO {
      * @throws NullPointerException if something goes wrong probably
      */
     public static void writeAdventurer(Adventurer adventurer) throws NullPointerException {
+        System.out.println("Writing Adventurer: " + adventurer.getName());
+
         DocumentBuilderFactory documentBuilderFactory =
                 DocumentBuilderFactory.newInstance();
+
 
         DocumentBuilder documentBuilder = null;
         try {
@@ -46,6 +55,8 @@ public class AdventurerIO {
         addElementToRoot("level", adventurer.getLevel().toString(),
                 rootElement, doc);
 
+
+
         String abilityScoresString = adventurer.getAbilityScores().toString();
         addElementFromArrayStringToRoot("abilityscores", abilityScoresString, rootElement, doc);
 
@@ -60,6 +71,9 @@ public class AdventurerIO {
             addElementToRoot("item", item.getDescription(), inventoryElem, doc);
         }
         rootElement.appendChild(inventoryElem);
+
+        addElementToRoot("notes", adventurer.getNotes(),
+                rootElement, doc);
 
         try {
             DataWriter.writeData("src/adventurers/" + adventurer.getName() + ".xml", doc);
@@ -76,7 +90,9 @@ public class AdventurerIO {
      * @throws Exception
      */
     public static Adventurer loadAdventurer(String adventurerName, PlayerHandbook playerHandbook) throws Exception{
-        Adventurer res = new Adventurer();
+        System.out.println("Reading Adventurer: " + adventurerName);
+
+        Adventurer.AdventurerBuilder builder = new Adventurer.AdventurerBuilder();
 
         Document doc = null;
         try {
@@ -87,27 +103,28 @@ public class AdventurerIO {
 
         Element adventurerElement = (Element) doc.getElementsByTagName("adventurer").item(0);
 
-        res.setName(getTextFromElement("name", adventurerElement));
-        res.setMaxHealth(Integer.parseInt(getTextFromElement("maxhealth", adventurerElement)));
-        res.setCurrHealth(Integer.parseInt(getTextFromElement("currhealth", adventurerElement)));
-        res.setLevel(Integer.parseInt(getTextFromElement("level", adventurerElement)));
+        // Read health level and class
+        String name = getTextFromElement("name", adventurerElement);
+        int maxHealth = Integer.parseInt(getTextFromElement("maxhealth", adventurerElement));
+        int currHealth = Integer.parseInt(getTextFromElement("currhealth", adventurerElement));
+        int setLevel = Integer.parseInt(getTextFromElement("level", adventurerElement));
 
         String className = getTextFromElement("class", adventurerElement);
         AdventurerClass adventurerClass = playerHandbook.getValidClasses().get(className);
-        res.setAdventurerClass(adventurerClass);
 
+        // read ability scores
         String abilityScoresString = getTextFromElement("abilityscores", adventurerElement);
         String[] abilityScoreStrings = abilityScoresString.split(", ");
         List<Integer> abillityScores = new ArrayList<Integer>();
         for (String as : abilityScoreStrings) {
             abillityScores.add(Integer.parseInt(as));
         }
-        res.setAbilityScores(abillityScores);
 
+        // read skill skill proficiencies
         String skillProficienciesString = getTextFromElement("skillproficiencies", adventurerElement);
         String[] skillProficiencyStrings = skillProficienciesString.split(", ");
         Set<String> skillProficiencies = new HashSet<String>(Arrays.asList(skillProficiencyStrings));
-        res.setSkillProficiencies(skillProficiencies);
+
 
         // read inventory
         List<Item> inventory = new ArrayList<Item>();
@@ -117,9 +134,18 @@ public class AdventurerIO {
             String description = itemElems.item(i).getTextContent();
             inventory.add(new Item(description));
         }
-        res.setInventory(inventory);
 
-        return res;
+        // read notes
+        String notes = getTextFromElement("notes", adventurerElement);
+
+        // build Adventurer
+        return builder.withName(name).withMaxHealth(maxHealth)
+                .withCurrHealth(currHealth).withLevel(setLevel)
+                .withAdventurerClass(adventurerClass).withAbilityScores(abillityScores)
+                .withSkillProficiencies(skillProficiencies)
+                .withInventory(inventory)
+                .withNotes(notes)
+                .build();
     }
 
     private static String getTextFromElement(String tag, Element root) {
