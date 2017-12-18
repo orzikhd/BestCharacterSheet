@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 
 import javafx.beans.value.ChangeListener;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -44,9 +45,15 @@ public class Controller {
         listener = new SetHealthListener();
         currHealthDynamic.textProperty().addListener(listener);
 
+        // INVENTORY
         // add inventory item btn
-        btn = (Button)id("inventory_button");
+        btn = (Button)id("inventory_button_add");
         handler = new AddItemEventHandler();
+        btn.setOnAction(handler);
+
+        // remove inventory item btn
+        btn = (Button)id("inventory_button_remove");
+        handler = new RemoveItemEventHandler();
         btn.setOnAction(handler);
 
         // save notes btn
@@ -203,6 +210,41 @@ public class Controller {
                 adventurer.addItem(new Item(description));
                 writeToFile();
                 addItem.clear();
+            }
+        }
+    }
+
+    /**
+     * Tells controller to add item to Adventurer's inventory
+     */
+    private class RemoveItemEventHandler implements EventHandler<ActionEvent> {
+
+        /**
+         * What happens when event handler is fired
+         * @param e: The event
+         */
+        @Override
+        public void handle(ActionEvent e) {
+
+            TableView table = (TableView)id("item_table");
+            UserInterface.ViewItem selected = (UserInterface.ViewItem)table.getSelectionModel().getSelectedItem();
+
+            if(selected != null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Remove Item Confirmation");
+                alert.setHeaderText("Remove: \"" + selected.getDescription() + "\"?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+                    // ... user chose OK
+                    // Remove from view
+                    table.getItems().remove(selected);
+
+                    // Remove from underlying adventurer object
+                    adventurer.removeItemByDescription(selected.getDescription());
+                    writeToFile();
+                }
             }
         }
     }

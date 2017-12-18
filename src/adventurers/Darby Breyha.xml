@@ -7,23 +7,7 @@
     <level>1</level>
     <abilityscores>10, 12, 1, 20, 15, 5</abilityscores>
     <skillproficiencies>Charisma, Stealth</skillproficiencies>
-    <inventory>
-        <item>Jar of Pixie Dust</item>
-        <item>Longsword</item>
-        <item>Alchemist Satchel</item>
-        <item>Potion Kit</item>
-        <item>50ft of rope</item>
-        <item>Vial of oil (3)</item>
-        <item>Bulls-eye Lantern</item>
-        <item>Set of noblesman clothes</item>
-        <item>Sending Stones</item>
-        <item>A potion of strength</item>
-        <item>Apple</item>
-        <item>Hello</item>
-        <item>Arrow </item>
-        <item>addd</item>
-        <item>qdd</item>
-    </inventory>
+    <inventory/>
     <notes>Became a big boy today
 
 Became a Darby breh boy
