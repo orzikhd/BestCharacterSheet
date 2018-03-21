@@ -34,6 +34,8 @@ cmake-build-debug/
 # IntelliJ
 .idea/codeStyleSettings.xml
 out/
+.idea/misc.xml
+target/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
