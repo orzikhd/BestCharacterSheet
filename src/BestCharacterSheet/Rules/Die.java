@@ -1,9 +1,17 @@
 package BestCharacterSheet.Rules;
 
 public class Die implements Rule{
-    public int size;
+    public final int size;
+
     public Die(int size){
         this.size = size;
+    }
+
+    @Override
+    public Rule execute() {
+        // trigger View input event
+        Integer resultOfView = 0; //TODO
+        return new Int(resultOfView);
     }
 
     @Override

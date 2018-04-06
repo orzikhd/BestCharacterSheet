@@ -25,7 +25,7 @@ public class Util {
         WISDOM ("Wisdom"),
         CHARISMA ("Charisma");
 
-        private final String ability;
+        public final String ability;
 
         Ability(String ability) {
             this.ability = ability;
@@ -55,12 +55,23 @@ public class Util {
         , STEALTH ("Stealth", Ability.DEXTERITY)
         , SURVIVAL ("Survival", Ability.WISDOM);
 
-        private final String skill;
-        private final Ability ability;
+        public final String skill;
+        public final Ability ability;
 
         Skill(String skill, Ability ability) {
             this.skill = skill;
             this.ability = ability;
+        }
+    }
+
+    public enum Rest {
+        SHORT("Short"),
+        LONG("Long");
+
+        public final String desc;
+
+        Rest(String desc) {
+            this.desc = desc;
         }
     }
 }

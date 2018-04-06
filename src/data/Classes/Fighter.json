@@ -1,19 +1,12 @@
 [[
-  {"$HP_10": {
-   "subrule": { "Addition": {
-     "values": [
-       {"GetAdventurerValue": "HP"},
-       {"Choice": {
-         "num": 1,
-         "values": [6, {"Die": 10}]
-       }}]
-   }}
-  }}
+  {"$HP_10": {"HP": {
+    "defaultVal": 6,
+    "dieSize": 10
+  }}}
 ],[
   {"HP": {
-    "subrule": { "Addition": {
-      "values": [10, {"GetAbilityMod": "CON"}]
-    }}
+    "defaultVal": 10,
+    "dieSize": 0
   }},
   {"Armor_Proficiency": {
     "name": "all",

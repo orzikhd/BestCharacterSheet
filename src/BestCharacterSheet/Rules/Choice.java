@@ -7,29 +7,28 @@ import java.util.ArrayList;
  * rules in a list of options
  */
 public class Choice implements Rule {
-    public int num;
+    public final Integer num;
     private List<Rule> values;
 
-    public Choice(){
-        values = new ArrayList<Rule>();
-    }
-
-    public Choice(int num, List<Rule> values) {
-        this();
+    public Choice(Integer num, List<Rule> values) {
         this.num = num;
         this.values = values;
     }
 
-    public void addRule(Rule r) {
-        values.add(r);
-    }
-
     public List<Rule> getList() {
-        List<Rule> newList = new ArrayList<Rule>();
+        List<Rule> newList = new ArrayList<>();
         for(Rule r : values) {
             newList.add(r.copy());
         }
         return newList;
+    }
+
+    @Override
+    public Rule execute() {
+        // trigger View input event with num choices out of the values
+        // TODO
+        List<Rule> choices = new ArrayList<>();
+        return new And(choices);
     }
 
     @Override
