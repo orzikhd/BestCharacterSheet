@@ -1,7 +1,7 @@
 package BestCharacterSheet.Rules;
 
 public class Die implements Rule{
-    private int size;
+    public int size;
     public Die(int size){
         this.size = size;
     }

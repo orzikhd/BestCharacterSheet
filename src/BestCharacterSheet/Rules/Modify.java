@@ -1,7 +1,7 @@
 package BestCharacterSheet.Rules;
 
 public class Modify implements Rule{
-    private Rule x;
+    public Rule x;
     private String attribute;
     public Modify(Rule x, String attribute) {
         this.x = x;

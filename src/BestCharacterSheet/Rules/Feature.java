@@ -1,8 +1,8 @@
 package BestCharacterSheet.Rules;
 
 public class Feature implements Rule{
-    private Rule sub_rule;
-    private String name;
+    public Rule sub_rule;
+    public String name;
     public Feature(Rule sub_rule, String name) {
         this.sub_rule = sub_rule;
         this.name = name;

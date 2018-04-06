@@ -3,30 +3,30 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Represents an exclusive OR choice of x
+ * Represents an exclusive OR choice of num
  * rules in a list of options
  */
 public class Choice implements Rule {
-    private int x;
-    private List<Rule> rList;
+    public int num;
+    private List<Rule> values;
 
     public Choice(){
-        rList = new ArrayList<Rule>();
-    };
+        values = new ArrayList<Rule>();
+    }
 
-    public Choice(int x, List<Rule> rList) {
+    public Choice(int num, List<Rule> values) {
         this();
-        this.x = x;
-        this.rList = rList;
+        this.num = num;
+        this.values = values;
     }
 
     public void addRule(Rule r) {
-        rList.add(r);
+        values.add(r);
     }
 
     public List<Rule> getList() {
         List<Rule> newList = new ArrayList<Rule>();
-        for(Rule r : rList) {
+        for(Rule r : values) {
             newList.add(r.copy());
         }
         return newList;
@@ -34,6 +34,6 @@ public class Choice implements Rule {
 
     @Override
     public Choice copy() {
-        return new Choice(this.x,this.getList());
+        return new Choice(this.num,this.getList());
     }
 }
