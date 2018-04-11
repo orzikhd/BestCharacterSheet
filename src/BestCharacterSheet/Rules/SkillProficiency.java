@@ -1,9 +1,18 @@
 package BestCharacterSheet.Rules;
 import BestCharacterSheet.Util.Skill;
 
+/**
+ * The SkillProficiency Rule represents giving the Adventurer proficiency
+ * in whatever skill it is constructed with.
+ */
 public class SkillProficiency extends Proficiency {
     public final boolean expertise;
 
+    /**
+     * Creates a SkillProficiency Rule
+     * @param name The name of the skill
+     * @param expertise True if the Adventurer has expertise in this skill
+     */
     public SkillProficiency(String name, boolean expertise) {
         super(name);
         this.expertise = expertise;
@@ -15,6 +24,13 @@ public class SkillProficiency extends Proficiency {
         }
     }
 
+    /**
+     * Triggers an event where the proficiency is granted to the Adventurer
+     *
+     * While this can affect the Model or View, this Rule has nothing to return
+     * and no purpose in being propagated.
+     * @return null
+     */
     @Override
     public Rule execute() {
         // adds proficiency in this skill to the adventurer TODO

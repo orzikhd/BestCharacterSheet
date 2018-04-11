@@ -11,7 +11,8 @@ public interface Rule {
      * - Returns a value that a parent rule is waiting on
      * Any combination of these can occur.
      * @return Rule that is a result of execution, to be passed to a parent Rule.
-     * - This value can be null, representing no return value.
+     * - This value can be the Rule itself, as in 'this', representing that it is a leaf for the purposes of interaction
+     * - This value can be null, representing no return value
      */
     Rule execute();
 

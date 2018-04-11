@@ -2,9 +2,16 @@ package BestCharacterSheet.Rules;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * The And Rule represents all of its child rules being executed together.
+ */
 public class And implements Rule {
     private final List<Rule> values;
 
+    /**
+     * Creates an And Rule
+     * @param values child rules that are all to be executed together
+     */
     public And(List<Rule> values) {
         this.values = values;
     }
@@ -17,6 +24,11 @@ public class And implements Rule {
         return newList;
     }
 
+    /**
+     * Returns a new And Rule containing the non-null results of executing
+     * all of its child rules
+     * @return list of post-execution rules
+     */
     @Override
     public Rule execute() {
         List<Rule> results = new ArrayList<>();
